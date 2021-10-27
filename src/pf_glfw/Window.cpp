@@ -57,6 +57,18 @@ void Window::setClipboardContents(const std::string &contents) {
   glfwSetClipboardString(windowHandle, contents.c_str());
 }
 
+void Window::setCursor(Cursor &cursor) {
+  glfwSetCursor(windowHandle, cursor.getHandle());
+}
+
+GLFWwindow *Window::getHandle() {
+  return windowHandle;
+}
+
+const GLFWwindow *Window::getHandle() const {
+  return windowHandle;
+}
+
 void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
   auto self = reinterpret_cast<Window*>(glfwGetWindowUserPointer(window));
   self->charCallback(codepoint);

@@ -5,6 +5,7 @@
 #ifndef PF_GLFW_SRC_PF_GLFW_WINDOW_H
 #define PF_GLFW_SRC_PF_GLFW_WINDOW_H
 
+#include "Cursor.h"
 #include <GLFW/glfw3.h>
 #include <filesystem>
 #include <functional>
@@ -17,15 +18,11 @@
 #include <pf_glfw/enums/MouseButtonAction.h>
 #include <string>
 
-// TODO: monitor, cursor
+// TODO: monitor
 // input stuff:
 // glfwGetInputMode - Window
 // glfwSetInputMode - Window
 // glfwRawMouseMotionSupported - Window
-// glfwCreateCursor
-// glfwCreateStandardCursor
-// glfwDestroyCursor
-// glfwSetCursor - Window
 // joystick stuff
 // gamepad stuff
 // glfwGetTime
@@ -80,6 +77,12 @@ class Window {
 
   [[nodiscard]] std::string getClipboardContents() const;
   void setClipboardContents(const std::string &contents);
+
+  void setCursor(Cursor &cursor);
+
+  [[nodiscard]] GLFWwindow *getHandle();
+  [[nodiscard]]const GLFWwindow *getHandle() const;
+
 
   void setKeyCallback(KeyListener auto &&callback) {
     keyCallback = std::forward<decltype(callback)>(callback);

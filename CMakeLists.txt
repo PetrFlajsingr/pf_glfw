@@ -39,7 +39,7 @@ foreach (_variableName ${_variableNames})
 endforeach()
 set(SOURCES
         src/pf_glfw/Window.cpp
-        src/pf_glfw/Window.h src/pf_glfw/enums/Key.h src/pf_glfw/enums/KeyAction.h src/pf_glfw/enums/ModifierKey.h src/pf_glfw/enums/MouseButton.h src/pf_glfw/enums/MouseButtonAction.h src/pf_glfw/enums/CursorEntered.h src/pf_glfw/enums/Key.cpp)
+        src/pf_glfw/Window.h src/pf_glfw/enums/Key.h src/pf_glfw/enums/KeyAction.h src/pf_glfw/enums/ModifierKey.h src/pf_glfw/enums/MouseButton.h src/pf_glfw/enums/MouseButtonAction.h src/pf_glfw/enums/CursorEntered.h src/pf_glfw/enums/Key.cpp src/pf_glfw/Cursor.cpp src/pf_glfw/Cursor.h src/pf_glfw/Image.cpp src/pf_glfw/Image.h src/pf_glfw/GLFWobject.h src/pf_glfw/enums/CursorShape.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")
