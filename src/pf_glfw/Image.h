@@ -6,6 +6,7 @@
 #define PF_GLFW_SRC_PF_GLFW_IMAGE_H
 
 #include <GLFW/glfw3.h>
+#include <memory>
 #include <span>
 #include <vector>
 
@@ -21,12 +22,13 @@ class Image {
   [[nodiscard]] std::span<const std::byte> getPixels() const;
 
   [[nodiscard]] GLFWimage *getHandle();
-  [[nodiscard]] const GLFWimage *getHandle()const;
+  [[nodiscard]] const GLFWimage *getHandle() const;
+
  private:
   std::vector<std::byte> imagePixels;
-  GLFWimage imageHandle;
+  std::shared_ptr<GLFWimage> imageHandle;
 };
 
-}
+}// namespace pf::glfw
 
 #endif//PF_GLFW_SRC_PF_GLFW_IMAGE_H

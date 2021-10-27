@@ -19,4 +19,4 @@ GLFWcursor *Cursor::getHandle() {
   return cursorHandle;
 }
 
-}
+}// namespace pf::glfw

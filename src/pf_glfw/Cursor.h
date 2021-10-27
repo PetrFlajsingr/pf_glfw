@@ -17,14 +17,16 @@ class Cursor {
   Cursor(const Image &image, int xHotspot, int yHotspot);
 
   explicit Cursor(CursorShape cursorShape);
-
+  Cursor(const Cursor &) = delete;
+  Cursor &operator=(const Cursor &) = delete;
   virtual ~Cursor();
 
   [[nodiscard]] GLFWcursor *getHandle();
+
  private:
   GLFWcursor *cursorHandle;
 };
 
-}
+}// namespace pf::glfw
 
 #endif//PF_GLFW_SRC_PF_GLFW_CURSOR_H

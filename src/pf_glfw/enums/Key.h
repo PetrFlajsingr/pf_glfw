@@ -137,6 +137,6 @@ enum class Key {
   Menu = GLFW_KEY_MENU,
   Last = GLFW_KEY_LAST
 };
-}
+}// namespace pf::glfw
 
 #endif//PF_GLFW_SRC_PF_GLFW_ENUMS_KEY_H

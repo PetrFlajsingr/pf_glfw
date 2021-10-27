@@ -1,0 +1,40 @@
+//
+// Created by xflajs00 on 27.10.2021.
+//
+
+#ifndef PF_GLFW_SRC_PF_GLFW_CONCEPTS_H
+#define PF_GLFW_SRC_PF_GLFW_CONCEPTS_H
+
+#include <filesystem>
+#include <pf_common/enums.h>
+#include <pf_glfw/enums/Connection.h>
+#include <pf_glfw/enums/CursorEntered.h>
+#include <pf_glfw/enums/Key.h>
+#include <pf_glfw/enums/KeyAction.h>
+#include <pf_glfw/enums/ModifierKey.h>
+#include <pf_glfw/enums/MouseButton.h>
+#include <pf_glfw/enums/MouseButtonAction.h>
+#include <pf_glfw/structs.h>
+
+namespace pf::glfw {
+
+template<typename F>
+concept KeyListener = std::is_invocable_r_v<void, F, Key, KeyAction, Flags<ModifierKey>>;
+template<typename F>
+concept CharListener = std::is_invocable_r_v<void, F, std::u32string::value_type>;
+template<typename F>
+concept MouseButtonListener = std::is_invocable_r_v<void, F, MouseButton, MouseButtonAction, Flags<ModifierKey>>;
+template<typename F>
+concept CursorPositionListener = std::is_invocable_r_v<void, F, CursorPosition>;
+template<typename F>
+concept CursorEnterListener = std::is_invocable_r_v<void, F, CursorEntered>;
+template<typename F>
+concept ScrollListener = std::is_invocable_r_v<void, F, double, double>;
+template<typename F>
+concept DropListener = std::is_invocable_r_v<void, F, std::vector<std::filesystem::path>>;
+
+template<typename F>
+concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;
+}// namespace pf::glfw
+
+#endif//PF_GLFW_SRC_PF_GLFW_CONCEPTS_H

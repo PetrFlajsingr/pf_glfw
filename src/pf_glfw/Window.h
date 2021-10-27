@@ -6,10 +6,15 @@
 #define PF_GLFW_SRC_PF_GLFW_WINDOW_H
 
 #include "Cursor.h"
+#include "Monitor.h"
 #include <GLFW/glfw3.h>
 #include <filesystem>
 #include <functional>
+#include <optional>
 #include <pf_common/enums.h>
+#include <pf_glfw/Image.h>
+#include <pf_glfw/Monitor.h>
+#include <pf_glfw/concepts.h>
 #include <pf_glfw/enums/CursorEntered.h>
 #include <pf_glfw/enums/Key.h>
 #include <pf_glfw/enums/KeyAction.h>
@@ -20,9 +25,6 @@
 
 // TODO: monitor
 // input stuff:
-// glfwGetInputMode - Window
-// glfwSetInputMode - Window
-// glfwRawMouseMotionSupported - Window
 // joystick stuff
 // gamepad stuff
 // glfwGetTime
@@ -32,38 +34,20 @@
 
 namespace pf::glfw {
 
-
 struct WindowConfig {
   std::size_t width;
   std::size_t height;
   std::string title;
-  // TODO: monitor
+  std::optional<Monitor> monitor = std::nullopt;
 };
-// TODO: move this out
-struct CursorPosition {
-  double x;
-  double y;
-};
-template<typename F>
-concept KeyListener = std::is_invocable_r_v<void, F, Key, KeyAction, Flags<ModifierKey>>;
-template<typename F>
-concept CharListener = std::is_invocable_r_v<void, F, std::u32string::value_type>;
-template<typename F>
-concept MouseButtonListener = std::is_invocable_r_v<void, F, MouseButton, MouseButtonAction, Flags<ModifierKey>>;
-template<typename F>
-concept CursorPositionListener = std::is_invocable_r_v<void, F, CursorPosition>;
-template<typename F>
-concept CursorEnterListener = std::is_invocable_r_v<void, F, CursorEntered>;
-template<typename F>
-concept ScrollListener = std::is_invocable_r_v<void, F, double, double>;
-template<typename F>
-concept DropListener = std::is_invocable_r_v<void, F, std::vector<std::filesystem::path>>;
 
 // TODO: opengl/vulkan descendant
 // TODO: click, double click
 class Window {
  public:
-  explicit Window(const WindowConfig &config);
+  explicit Window(WindowConfig config);
+  Window(const Window &) = delete;
+  Window &operator=(const Window &) = delete;
   virtual ~Window();
 
   [[nodiscard]] bool shouldClose() const;
@@ -80,9 +64,51 @@ class Window {
 
   void setCursor(Cursor &cursor);
 
-  [[nodiscard]] GLFWwindow *getHandle();
-  [[nodiscard]]const GLFWwindow *getHandle() const;
+  void setTitle(const std::string &title);
 
+  void setIcon(const std::vector<Image> &icons);
+
+  [[nodiscard]] WindowPosition getPosition() const;
+  void setPosition(WindowPosition position);
+
+  [[nodiscard]] WindowSize getSize() const;
+  void setSize(WindowSize size);
+
+  void setSizeLimits(WindowSize minSize, WindowSize maxSize);
+
+  void setAspectRatio(int numer, int denom);
+
+  // glfwGetFramebufferSize
+  // glfwGetWindowFrameSize
+  // glfwGetWindowCOntentScale
+  [[nodiscard]] float getOpacity() const;
+  void setOpacity(float opacity);
+
+  // glfwIconifyWindow
+  void restore();
+  void maximize();
+  void hide();
+  void show();
+  [[nodiscard]] bool isVisible() const;
+
+  void setFocus();
+
+  void requestAttention();
+
+  [[nodiscard]] Monitor getMonitor() const {
+    // TODO: glfwGetWindowMonitor
+  }
+
+  // glfwSetWindowMonitor
+  // glfwGetSetWindowAttrib
+  // glfwPollEvents/waitEvents + timeout
+
+  [[nodiscard]] GLFWwindow *getHandle();
+  [[nodiscard]] const GLFWwindow *getHandle() const;
+
+  // glfwGetInputMode - Window
+  // glfwSetInputMode - Window
+  // glfwRawMouseMotionSupported - Window
 
   void setKeyCallback(KeyListener auto &&callback) {
     keyCallback = std::forward<decltype(callback)>(callback);
@@ -139,7 +165,7 @@ class Window {
   static void scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffset);
 
   std::function<void(std::vector<std::filesystem::path>)> dropCallback;
-  static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char* paths[]);
+  static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
 
   GLFWwindow *windowHandle;
 };
