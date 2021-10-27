@@ -6,9 +6,10 @@
 #define PF_GLFW_SRC_PF_GLFW_ENUMS_CONNECTION_H
 
 #include <GLFW/glfw3.h>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-enum class Connection {
+enum class PF_GLFW_EXPORT Connection {
   Connected = GLFW_CONNECTED,
   Disconnected = GLFW_DISCONNECTED
 };

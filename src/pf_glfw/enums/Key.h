@@ -7,13 +7,14 @@
 
 #include <GLFW/glfw3.h>
 #include <string_view>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
 enum class Key;
 
 [[nodiscard]] std::string_view getKeyName(Key key);
 
-enum class Key {
+enum class PF_GLFW_EXPORT Key {
   Unknown = GLFW_KEY_UNKNOWN,
   Space = GLFW_KEY_SPACE,
   Apostrophe = GLFW_KEY_APOSTROPHE,

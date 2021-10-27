@@ -11,10 +11,11 @@
 #include <pf_glfw/enums/Connection.h>
 #include <string>
 #include <vector>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
 
-class Monitor {
+class PF_GLFW_EXPORT Monitor {
  public:
   Monitor(const Monitor &other);
   Monitor &operator=(const Monitor &other);

@@ -5,34 +5,36 @@
 #ifndef PF_GLFW_SRC_PF_GLFW_STRUCTS_H
 #define PF_GLFW_SRC_PF_GLFW_STRUCTS_H
 
+#include <pf_glfw/_export.h>
+
 namespace pf::glfw {
 
-struct CursorPosition {
+struct PF_GLFW_EXPORT CursorPosition {
   double x;
   double y;
 };
-struct WindowPosition {
+struct PF_GLFW_EXPORT WindowPosition {
   int x;
   int y;
 };
-struct WindowSize {
+struct PF_GLFW_EXPORT WindowSize {
   int width;
   int height;
 };
-struct MonitorPosition {
+struct PF_GLFW_EXPORT MonitorPosition {
   int x;
   int y;
 };
-struct MonitorWorkArea {
+struct PF_GLFW_EXPORT MonitorWorkArea {
   MonitorPosition position;
   int width;
   int height;
 };
-struct MonitorSize {
+struct PF_GLFW_EXPORT MonitorSize {
   int width;
   int height;
 };
-struct MonitorScale {
+struct PF_GLFW_EXPORT MonitorScale {
   float x;
   float y;
 };

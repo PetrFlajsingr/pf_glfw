@@ -6,9 +6,10 @@
 #define PF_GLFW_SRC_PF_GLFW_ENUMS_MOUSEBUTTON_H
 
 #include <GLFW/glfw3.h>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-enum class MouseButton {
+enum class PF_GLFW_EXPORT MouseButton {
   B1 = GLFW_MOUSE_BUTTON_1,
   B2 = GLFW_MOUSE_BUTTON_2,
   B3 = GLFW_MOUSE_BUTTON_3,

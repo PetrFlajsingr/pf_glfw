@@ -22,6 +22,7 @@
 #include <pf_glfw/enums/MouseButton.h>
 #include <pf_glfw/enums/MouseButtonAction.h>
 #include <string>
+#include <pf_glfw/_export.h>
 
 // TODO: monitor
 // input stuff:
@@ -34,7 +35,7 @@
 
 namespace pf::glfw {
 
-struct WindowConfig {
+struct PF_GLFW_EXPORT WindowConfig {
   std::size_t width;
   std::size_t height;
   std::string title;
@@ -43,7 +44,7 @@ struct WindowConfig {
 
 // TODO: opengl/vulkan descendant
 // TODO: click, double click
-class Window {
+class PF_GLFW_EXPORT Window {
  public:
   explicit Window(WindowConfig config);
   Window(const Window &) = delete;

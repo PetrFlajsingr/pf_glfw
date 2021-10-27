@@ -9,11 +9,12 @@
 #include <memory>
 #include <span>
 #include <vector>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
 
 // gotta be RGBA
-class Image {
+class PF_GLFW_EXPORT Image {
  public:
   Image(std::size_t width, std::size_t height, std::span<std::byte> pixels);
 

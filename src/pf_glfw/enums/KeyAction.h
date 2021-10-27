@@ -6,9 +6,10 @@
 #define PF_GLFW_SRC_PF_GLFW_ENUMS_KEYACTION_H
 
 #include <GLFW/glfw3.h>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-enum class KeyAction {
+enum class PF_GLFW_EXPORT KeyAction {
   Press = GLFW_PRESS,
   Release = GLFW_RELEASE,
   Repeat = GLFW_REPEAT

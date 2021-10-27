@@ -7,12 +7,12 @@
 
 #include "Image.h"
 #include <GLFW/glfw3.h>
-
+#include <pf_glfw/_export.h>
 #include <pf_glfw/enums/CursorShape.h>
 
 namespace pf::glfw {
 
-class Cursor {
+class PF_GLFW_EXPORT Cursor {
  public:
   Cursor(const Image &image, int xHotspot, int yHotspot);
 

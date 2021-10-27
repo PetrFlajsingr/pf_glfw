@@ -6,10 +6,11 @@
 #define PF_GLFW_SRC_PF_GLFW_ENUMS_CURSORSHAPE_H
 
 #include <GLFW/glfw3.h>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
 
-enum class CursorShape {
+enum class PF_GLFW_EXPORT CursorShape {
   Arrow = GLFW_ARROW_CURSOR,
   IBeam = GLFW_IBEAM_CURSOR,
   Crosshair = GLFW_CROSSHAIR_CURSOR,
