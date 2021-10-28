@@ -60,5 +60,9 @@ void GLFW::waitEvents() {
 void GLFW::waitEvents(std::chrono::milliseconds timeout) {
   glfwWaitEventsTimeout(timeout.count() / 1000.0);
 }
-
+#ifdef PF_GLFW_OPENGL
+decltype(&glfwGetProcAddress) GLFW::getLoaderFnc() const {
+  return glfwGetProcAddress;
+}
+#endif
 }// namespace pf::glfw

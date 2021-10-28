@@ -32,6 +32,10 @@ class PF_GLFW_EXPORT GLFW {
   void waitEvents(std::chrono::milliseconds timeout);
 
 #ifdef PF_GLFW_OPENGL
+  [[nodiscard]] decltype(&glfwGetProcAddress) getLoaderFnc() const;
+#endif
+
+#ifdef PF_GLFW_OPENGL
   [[nodiscard]] bool isExtensionSupported(const std::string &extension) const;
 #endif
 

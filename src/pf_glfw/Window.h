@@ -111,7 +111,6 @@ class PF_GLFW_EXPORT Window {
 
   [[nodiscard]] Monitor getMonitor() const;
 
-
   // glfwSetWindowMonitor
   // glfwGetSetWindowAttrib
   // glfwPollEvents/waitEvents + timeout
