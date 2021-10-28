@@ -2,8 +2,8 @@
 // Created by xflajs00 on 27.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_STRUCTS_H
-#define PF_GLFW_SRC_PF_GLFW_STRUCTS_H
+#ifndef PF_GLFW_STRUCTS_H
+#define PF_GLFW_STRUCTS_H
 
 #include <pf_glfw/_export.h>
 
@@ -45,4 +45,4 @@ struct PF_GLFW_EXPORT MonitorScale {
 };
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_STRUCTS_H
+#endif//PF_GLFW_STRUCTS_H

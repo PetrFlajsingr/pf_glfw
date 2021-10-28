@@ -2,8 +2,8 @@
 // Created by xflajs00 on 27.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_CURSOR_H
-#define PF_GLFW_SRC_PF_GLFW_CURSOR_H
+#ifndef PF_GLFW_CURSOR_H
+#define PF_GLFW_CURSOR_H
 
 #include "Image.h"
 #include <GLFW/glfw3.h>
@@ -29,4 +29,4 @@ class PF_GLFW_EXPORT Cursor {
 
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_CURSOR_H
+#endif//PF_GLFW_CURSOR_H

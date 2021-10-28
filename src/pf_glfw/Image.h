@@ -2,8 +2,8 @@
 // Created by xflajs00 on 27.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_IMAGE_H
-#define PF_GLFW_SRC_PF_GLFW_IMAGE_H
+#ifndef PF_GLFW_IMAGE_H
+#define PF_GLFW_IMAGE_H
 
 #include <GLFW/glfw3.h>
 #include <memory>
@@ -32,4 +32,4 @@ class PF_GLFW_EXPORT Image {
 
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_IMAGE_H
+#endif//PF_GLFW_IMAGE_H

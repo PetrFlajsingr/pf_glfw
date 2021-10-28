@@ -2,8 +2,8 @@
 // Created by xflajs00 on 28.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_EXCEPTION_H
-#define PF_GLFW_SRC_PF_GLFW_EXCEPTION_H
+#ifndef PF_GLFW_EXCEPTION_H
+#define PF_GLFW_EXCEPTION_H
 
 #include <exception>
 #include <optional>
@@ -53,4 +53,4 @@ inline void getLastErrorAndThrow() {
 
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_EXCEPTION_H
+#endif//PF_GLFW_EXCEPTION_H

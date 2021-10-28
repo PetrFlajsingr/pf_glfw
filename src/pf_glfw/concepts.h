@@ -2,8 +2,8 @@
 // Created by xflajs00 on 27.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_CONCEPTS_H
-#define PF_GLFW_SRC_PF_GLFW_CONCEPTS_H
+#ifndef PF_GLFW_CONCEPTS_H
+#define PF_GLFW_CONCEPTS_H
 
 #include <filesystem>
 #include <pf_common/enums.h>
@@ -39,4 +39,4 @@ template<typename F>
 concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_CONCEPTS_H
+#endif//PF_GLFW_CONCEPTS_H

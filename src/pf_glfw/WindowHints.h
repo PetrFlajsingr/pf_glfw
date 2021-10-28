@@ -2,8 +2,8 @@
 // Created by xflajs00 on 28.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_WINDOWHINTS_H
-#define PF_GLFW_SRC_PF_GLFW_WINDOWHINTS_H
+#ifndef PF_GLFW_WINDOWHINTS_H
+#define PF_GLFW_WINDOWHINTS_H
 
 #include <pf_glfw/constants.h>
 #include <pf_glfw/enums/ContextCreationAPI.h>
@@ -68,4 +68,4 @@ class WindowHints {
 };
 
 }// namespace pf::glfw
-#endif//PF_GLFW_SRC_PF_GLFW_WINDOWHINTS_H
+#endif//PF_GLFW_WINDOWHINTS_H

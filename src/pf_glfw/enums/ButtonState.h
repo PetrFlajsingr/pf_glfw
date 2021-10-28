@@ -2,8 +2,8 @@
 // Created by xflajs00 on 28.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_ENUMS_BUTTONSTATE_H
-#define PF_GLFW_SRC_PF_GLFW_ENUMS_BUTTONSTATE_H
+#ifndef PF_GLFW_ENUMS_BUTTONSTATE_H
+#define PF_GLFW_ENUMS_BUTTONSTATE_H
 
 namespace pf::glfw {
 enum class ButtonState {
@@ -12,4 +12,4 @@ enum class ButtonState {
 };
 }
 
-#endif//PF_GLFW_SRC_PF_GLFW_ENUMS_BUTTONSTATE_H
+#endif//PF_GLFW_ENUMS_BUTTONSTATE_H

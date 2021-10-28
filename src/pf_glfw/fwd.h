@@ -2,8 +2,8 @@
 // Created by xflajs00 on 28.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_FWD_H
-#define PF_GLFW_SRC_PF_GLFW_FWD_H
+#ifndef PF_GLFW_FWD_H
+#define PF_GLFW_FWD_H
 
 namespace pf::glfw {
 class Cursor;
@@ -13,4 +13,4 @@ class Window;
 class GLFW;
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_FWD_H
+#endif//PF_GLFW_FWD_H

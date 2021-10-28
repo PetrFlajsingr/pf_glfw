@@ -2,8 +2,8 @@
 // Created by xflajs00 on 28.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_ENUMS_CURSORBEHAVIOR_H
-#define PF_GLFW_SRC_PF_GLFW_ENUMS_CURSORBEHAVIOR_H
+#ifndef PF_GLFW_ENUMS_CURSORBEHAVIOR_H
+#define PF_GLFW_ENUMS_CURSORBEHAVIOR_H
 
 #include <GLFW/glfw3.h>
 #include <pf_glfw/_export.h>
@@ -16,4 +16,4 @@ enum class PF_GLFW_EXPORT CursorBehavior {
 };
 }
 
-#endif//PF_GLFW_SRC_PF_GLFW_ENUMS_CURSORBEHAVIOR_H
+#endif//PF_GLFW_ENUMS_CURSORBEHAVIOR_H

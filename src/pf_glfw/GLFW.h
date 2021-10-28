@@ -2,8 +2,8 @@
 // Created by xflajs00 on 28.10.2021.
 //
 
-#ifndef PF_GLFW_SRC_PF_GLFW_GLFW_H
-#define PF_GLFW_SRC_PF_GLFW_GLFW_H
+#ifndef PF_GLFW_GLFW_H
+#define PF_GLFW_GLFW_H
 
 #include "Exception.h"
 #include "Window.h"
@@ -52,4 +52,4 @@ class PF_GLFW_EXPORT GLFW {
 
 }// namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_GLFW_H
+#endif//PF_GLFW_GLFW_H
