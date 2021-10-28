@@ -180,6 +180,10 @@ class PF_GLFW_EXPORT Window {
     glfwSetDropCallback(windowHandle, dropGLFWCallback);
   }
 
+  void setInputIgnorePredicate(std::predicate auto &&predicate) {
+    inputIgnorePredicate = std::forward<decltype(predicate)>(predicate);
+  }
+
  private:
   explicit Window(WindowConfig config);
 
@@ -205,6 +209,8 @@ class PF_GLFW_EXPORT Window {
 
   std::function<void(std::vector<std::filesystem::path>)> dropCallback;
   static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
+
+  std::function<bool()> inputIgnorePredicate = [] { return false; };
 
   std::array<ButtonState, magic_enum::enum_count<MouseButton>()> mouseButtonStates{ButtonState::Up};
 

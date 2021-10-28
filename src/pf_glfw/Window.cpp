@@ -228,11 +228,17 @@ void Window::setCurrent() {
 
 void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
   self->charCallback(codepoint);
 }
 
 void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
   const auto mbAction = static_cast<MouseButtonAction>(action);
   const auto mouseButton = static_cast<MouseButton>(button);
   const auto modFlags = Flags<ModifierKey>{static_cast<ModifierKey>(mods)};
@@ -245,16 +251,25 @@ void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action,
 
 void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
   self->cursorPositionCallback({xpos, ypos});
 }
 
 void Window::cursorEnterGLFWCallback(GLFWwindow *window, int entered) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
   self->cursorEnterCallback(static_cast<CursorEntered>(entered));
 }
 
 void Window::scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffset) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
   self->scrollCallback(xoffset, yoffset);
 }
 
