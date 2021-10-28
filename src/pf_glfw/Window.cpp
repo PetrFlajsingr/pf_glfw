@@ -14,6 +14,12 @@ Window::Window(WindowConfig config) {
   if (config.monitor.has_value()) {
     monitor = config.monitor->getHandle();
   }
+#ifdef PF_GLFW_OPENGL
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.majorOpenGLVersion);
+  glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.minorOpenGLVersion);
+  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+#endif
   windowHandle = glfwCreateWindow(config.width, config.height, config.title.c_str(), monitor, nullptr);
   if (windowHandle == nullptr) {
     details::getLastErrorAndThrow();

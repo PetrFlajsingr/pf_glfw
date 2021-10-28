@@ -44,6 +44,10 @@ struct PF_GLFW_EXPORT WindowConfig {
   std::size_t height;
   std::string title;
   std::optional<Monitor> monitor = std::nullopt;
+#ifdef PF_GLFW_OPENGL
+  int majorOpenGLVersion;
+  int minorOpenGLVersion;
+#endif
 };
 
 // TODO: click, double click
