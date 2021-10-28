@@ -186,27 +186,27 @@ class PF_GLFW_EXPORT Window {
  private:
   explicit Window(WindowConfig config);
 
-  std::function<void(Key, KeyAction, Flags<ModifierKey>)> keyCallback;
+  std::function<void(Key, KeyAction, Flags<ModifierKey>)> keyCallback = [](auto, auto, auto) {};
   static void keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
-  std::function<void(std::u32string::value_type)> charCallback;
+  std::function<void(std::u32string::value_type)> charCallback = [](auto) {};
   static void charGLFWCallback(GLFWwindow *window, unsigned int codepoint);
 
-  std::function<void(MouseButton, MouseButtonAction, Flags<ModifierKey>)> mouseButtonCallback;
+  std::function<void(MouseButton, MouseButtonAction, Flags<ModifierKey>)> mouseButtonCallback = [](auto, auto, auto) {};
   static void mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods);
 
   std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto) {};
 
-  std::function<void(CursorPosition)> cursorPositionCallback;
+  std::function<void(CursorPosition)> cursorPositionCallback = [](auto) {};
   static void cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos);
 
-  std::function<void(CursorEntered)> cursorEnterCallback;
+  std::function<void(CursorEntered)> cursorEnterCallback = [](auto) {};
   static void cursorEnterGLFWCallback(GLFWwindow *window, int entered);
 
-  std::function<void(double, double)> scrollCallback;
+  std::function<void(double, double)> scrollCallback = [](auto, auto) {};
   static void scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffset);
 
-  std::function<void(std::vector<std::filesystem::path>)> dropCallback;
+  std::function<void(std::vector<std::filesystem::path>)> dropCallback = [](auto) {};
   static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
 
   std::function<bool()> inputIgnorePredicate = [] { return false; };
