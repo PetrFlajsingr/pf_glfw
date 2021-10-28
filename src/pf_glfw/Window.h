@@ -5,19 +5,20 @@
 #ifndef PF_GLFW_SRC_PF_GLFW_WINDOW_H
 #define PF_GLFW_SRC_PF_GLFW_WINDOW_H
 
-#include "Cursor.h"
-#include "Monitor.h"
 #include <GLFW/glfw3.h>
 #include <filesystem>
 #include <functional>
 #include <magic_enum.hpp>
 #include <optional>
 #include <pf_common/enums.h>
+#include <pf_glfw/Cursor.h>
 #include <pf_glfw/Image.h>
 #include <pf_glfw/Monitor.h>
+#include <pf_glfw/WindowHints.h>
 #include <pf_glfw/_export.h>
 #include <pf_glfw/concepts.h>
 #include <pf_glfw/enums/ButtonState.h>
+#include <pf_glfw/enums/ClientAPI.h>
 #include <pf_glfw/enums/CursorBehavior.h>
 #include <pf_glfw/enums/CursorEntered.h>
 #include <pf_glfw/enums/Key.h>
@@ -39,20 +40,25 @@
 
 namespace pf::glfw {
 
-// TODO: hints and opengl init stuff
 struct PF_GLFW_EXPORT WindowConfig {
   std::size_t width;
   std::size_t height;
   std::string title;
   std::optional<Monitor> monitor = std::nullopt;
+  ClientAPI clientApi =
+#ifdef PF_GLFW_OPENGL
+      ClientAPI::OpenGL;
+#else
+      ClientAPI::None;
+#endif
 #ifdef PF_GLFW_OPENGL
   int majorOpenGLVersion;
   int minorOpenGLVersion;
 #endif
+  WindowHints hints{};
 };
 
-// TODO: click, double click
-// TODO: builder with hints?
+// TODO: double click
 // TODO: return value checks
 class PF_GLFW_EXPORT Window {
   friend class GLFW;

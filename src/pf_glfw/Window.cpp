@@ -20,6 +20,7 @@ Window::Window(WindowConfig config) {
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
   glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 #endif
+  config.hints.apply();
   windowHandle = glfwCreateWindow(config.width, config.height, config.title.c_str(), monitor, nullptr);
   if (windowHandle == nullptr) {
     details::getLastErrorAndThrow();
