@@ -10,20 +10,21 @@
 #include <GLFW/glfw3.h>
 #include <filesystem>
 #include <functional>
+#include <magic_enum.hpp>
 #include <optional>
 #include <pf_common/enums.h>
 #include <pf_glfw/Image.h>
 #include <pf_glfw/Monitor.h>
 #include <pf_glfw/_export.h>
 #include <pf_glfw/concepts.h>
+#include <pf_glfw/enums/ButtonState.h>
+#include <pf_glfw/enums/CursorBehavior.h>
 #include <pf_glfw/enums/CursorEntered.h>
 #include <pf_glfw/enums/Key.h>
 #include <pf_glfw/enums/KeyAction.h>
 #include <pf_glfw/enums/ModifierKey.h>
 #include <pf_glfw/enums/MouseButton.h>
 #include <pf_glfw/enums/MouseButtonAction.h>
-#include <pf_glfw/enums/ButtonState.h>
-#include <magic_enum.hpp>
 #include <pf_glfw/fwd.h>
 #include <string>
 
@@ -110,6 +111,7 @@ class PF_GLFW_EXPORT Window {
 
   [[nodiscard]] Monitor getMonitor() const;
 
+
   // glfwSetWindowMonitor
   // glfwGetSetWindowAttrib
   // glfwPollEvents/waitEvents + timeout
@@ -119,9 +121,18 @@ class PF_GLFW_EXPORT Window {
 
   [[nodiscard]] ButtonState getMouseButtonState(MouseButton button) const;
 
-  // glfwGetInputMode - Window
-  // glfwSetInputMode - Window
-  // glfwRawMouseMotionSupported - Window
+  [[nodiscard]] CursorBehavior getCursorBehavior() const;
+  [[nodiscard]] bool isStickyKeys() const;
+  [[nodiscard]] bool isStickyMouseButtons() const;
+  [[nodiscard]] bool isLockModifierKeys() const;
+  [[nodiscard]] bool isRawMouseMotionSupported() const;
+  [[nodiscard]] bool isRawMouseMotionEnabled() const;
+
+  void setCursorBehavior(CursorBehavior behavior);
+  void setStickyKeys(bool sticky);
+  void setStickyMouseButtons(bool sticky);
+  void setLockModifierKeys(bool lock);
+  void setRawMouseMotionEnabled(bool enabled);
 
   void setCurrent();
 
@@ -181,7 +192,7 @@ class PF_GLFW_EXPORT Window {
   std::function<void(MouseButton, MouseButtonAction, Flags<ModifierKey>)> mouseButtonCallback;
   static void mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods);
 
-  std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto){};
+  std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto) {};
 
   std::function<void(CursorPosition)> cursorPositionCallback;
   static void cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos);
@@ -194,7 +205,6 @@ class PF_GLFW_EXPORT Window {
 
   std::function<void(std::vector<std::filesystem::path>)> dropCallback;
   static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
-
 
   std::array<ButtonState, magic_enum::enum_count<MouseButton>()> mouseButtonStates{ButtonState::Up};
 

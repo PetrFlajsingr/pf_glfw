@@ -173,6 +173,55 @@ ButtonState Window::getMouseButtonState(MouseButton button) const {
   return mouseButtonStates[static_cast<int>(button)];
 }
 
+CursorBehavior Window::getCursorBehavior() const {
+  return static_cast<CursorBehavior>(glfwGetInputMode(windowHandle, GLFW_CURSOR));
+}
+
+bool Window::isStickyKeys() const {
+  return glfwGetInputMode(windowHandle, GLFW_STICKY_KEYS) == GLFW_TRUE;
+}
+
+bool Window::isStickyMouseButtons() const {
+  return glfwGetInputMode(windowHandle, GLFW_STICKY_MOUSE_BUTTONS) == GLFW_TRUE;
+}
+
+bool Window::isLockModifierKeys() const {
+  return glfwGetInputMode(windowHandle, GLFW_LOCK_KEY_MODS) == GLFW_TRUE;
+}
+
+bool Window::isRawMouseMotionSupported() const {
+  return glfwRawMouseMotionSupported();
+}
+
+bool Window::isRawMouseMotionEnabled() const {
+  return glfwGetInputMode(windowHandle, GLFW_RAW_MOUSE_MOTION) == GLFW_TRUE;
+}
+
+void Window::setCursorBehavior(CursorBehavior behavior) {
+  glfwSetInputMode(windowHandle, GLFW_CURSOR, static_cast<int>(behavior));
+  details::getLastErrorAndThrow();
+}
+
+void Window::setStickyKeys(bool sticky) {
+  glfwSetInputMode(windowHandle, GLFW_STICKY_KEYS, sticky ? GLFW_TRUE : GLFW_FALSE);
+  details::getLastErrorAndThrow();
+}
+
+void Window::setStickyMouseButtons(bool sticky) {
+  glfwSetInputMode(windowHandle, GLFW_STICKY_MOUSE_BUTTONS, sticky ? GLFW_TRUE : GLFW_FALSE);
+  details::getLastErrorAndThrow();
+}
+
+void Window::setLockModifierKeys(bool lock) {
+  glfwSetInputMode(windowHandle, GLFW_LOCK_KEY_MODS, lock ? GLFW_TRUE : GLFW_FALSE);
+  details::getLastErrorAndThrow();
+}
+
+void Window::setRawMouseMotionEnabled(bool enabled) {
+  glfwSetInputMode(windowHandle, GLFW_RAW_MOUSE_MOTION, enabled ? GLFW_TRUE : GLFW_FALSE);
+  details::getLastErrorAndThrow();
+}
+
 void Window::setCurrent() {
   glfwMakeContextCurrent(windowHandle);
 }

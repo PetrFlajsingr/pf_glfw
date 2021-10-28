@@ -63,7 +63,7 @@ set(SOURCES
         src/pf_glfw/concepts.h
         src/pf_glfw/structs.h
         src/pf_glfw/GLFW.cpp
-        src/pf_glfw/GLFW.h src/pf_glfw/fwd.h src/pf_glfw/enums/GraphicsAPI.h src/pf_glfw/enums/Error.h src/pf_glfw/Exception.h src/pf_glfw/enums/ButtonState.h)
+        src/pf_glfw/GLFW.h src/pf_glfw/fwd.h src/pf_glfw/enums/GraphicsAPI.h src/pf_glfw/enums/Error.h src/pf_glfw/Exception.h src/pf_glfw/enums/ButtonState.h src/pf_glfw/enums/CursorBehavior.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")
