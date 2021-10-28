@@ -3,6 +3,7 @@
 //
 
 #include "Window.h"
+#include "Exception.h"
 #include <span>
 #include <stdexcept>
 
@@ -15,13 +16,25 @@ Window::Window(WindowConfig config) {
   }
   windowHandle = glfwCreateWindow(config.width, config.height, config.title.c_str(), monitor, nullptr);
   if (windowHandle == nullptr) {
-    throw std::runtime_error("Could not initialize GLFW window");
+    details::getLastErrorAndThrow();
   }
   glfwSetWindowUserPointer(windowHandle, this);
 }
 
+Window::Window(Window &&other) noexcept : windowHandle(other.windowHandle) {
+  other.windowHandle = nullptr;
+}
+
+Window &Window::operator=(Window &&other) noexcept {
+  windowHandle = other.windowHandle;
+  other.windowHandle = nullptr;
+  return *this;
+}
+
 Window::~Window() {
-  glfwDestroyWindow(windowHandle);
+  if (windowHandle != nullptr) {
+    glfwDestroyWindow(windowHandle);
+  }
 }
 
 bool Window::shouldClose() const {
@@ -138,12 +151,20 @@ void Window::requestAttention() {
   glfwRequestWindowAttention(windowHandle);
 }
 
+Monitor Window::getMonitor() const {
+  return Monitor{glfwGetWindowMonitor(windowHandle)};
+}
+
 GLFWwindow *Window::getHandle() {
   return windowHandle;
 }
 
 const GLFWwindow *Window::getHandle() const {
   return windowHandle;
+}
+
+void Window::setCurrent() {
+  glfwMakeContextCurrent(windowHandle);
 }
 
 void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
@@ -180,8 +201,13 @@ void Window::dropGLFWCallback(GLFWwindow *window, int pathCount, const char *pat
   });
   self->dropCallback(fsPaths);
 }
+
 void Window::setTitle(const std::string &title) {
   glfwSetWindowTitle(windowHandle, title.c_str());
+}
+
+void Window::swapBuffers() {
+  glfwSwapBuffers(windowHandle);
 }
 
 }// namespace pf::glfw

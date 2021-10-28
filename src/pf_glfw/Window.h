@@ -14,6 +14,7 @@
 #include <pf_common/enums.h>
 #include <pf_glfw/Image.h>
 #include <pf_glfw/Monitor.h>
+#include <pf_glfw/_export.h>
 #include <pf_glfw/concepts.h>
 #include <pf_glfw/enums/CursorEntered.h>
 #include <pf_glfw/enums/Key.h>
@@ -21,10 +22,10 @@
 #include <pf_glfw/enums/ModifierKey.h>
 #include <pf_glfw/enums/MouseButton.h>
 #include <pf_glfw/enums/MouseButtonAction.h>
+#include <pf_glfw/fwd.h>
 #include <string>
-#include <pf_glfw/_export.h>
 
-// TODO: monitor
+// TODO;
 // input stuff:
 // joystick stuff
 // gamepad stuff
@@ -42,13 +43,17 @@ struct PF_GLFW_EXPORT WindowConfig {
   std::optional<Monitor> monitor = std::nullopt;
 };
 
-// TODO: opengl/vulkan descendant
 // TODO: click, double click
+// TODO: builder with hints?
+// TODO: return value checks
 class PF_GLFW_EXPORT Window {
+  friend class GLFW;
+
  public:
-  explicit Window(WindowConfig config);
   Window(const Window &) = delete;
   Window &operator=(const Window &) = delete;
+  Window(Window &&other) noexcept;
+  Window &operator=(Window &&other) noexcept;
   virtual ~Window();
 
   [[nodiscard]] bool shouldClose() const;
@@ -96,9 +101,7 @@ class PF_GLFW_EXPORT Window {
 
   void requestAttention();
 
-  [[nodiscard]] Monitor getMonitor() const {
-    // TODO: glfwGetWindowMonitor
-  }
+  [[nodiscard]] Monitor getMonitor() const;
 
   // glfwSetWindowMonitor
   // glfwGetSetWindowAttrib
@@ -110,6 +113,12 @@ class PF_GLFW_EXPORT Window {
   // glfwGetInputMode - Window
   // glfwSetInputMode - Window
   // glfwRawMouseMotionSupported - Window
+
+  void setCurrent();
+
+#ifdef PF_GLFW_OPENGL
+  void swapBuffers();
+#endif
 
   void setKeyCallback(KeyListener auto &&callback) {
     keyCallback = std::forward<decltype(callback)>(callback);
@@ -147,6 +156,8 @@ class PF_GLFW_EXPORT Window {
   }
 
  private:
+  explicit Window(WindowConfig config);
+
   std::function<void(Key, KeyAction, Flags<ModifierKey>)> keyCallback;
   static void keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 

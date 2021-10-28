@@ -6,8 +6,8 @@
 #define PF_GLFW_SRC_PF_GLFW_ENUMS_KEY_H
 
 #include <GLFW/glfw3.h>
-#include <string_view>
 #include <pf_glfw/_export.h>
+#include <string_view>
 
 namespace pf::glfw {
 enum class Key;

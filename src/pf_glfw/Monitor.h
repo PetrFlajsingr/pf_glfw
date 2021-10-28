@@ -16,6 +16,7 @@
 namespace pf::glfw {
 
 class PF_GLFW_EXPORT Monitor {
+  friend class Window;
  public:
   Monitor(const Monitor &other);
   Monitor &operator=(const Monitor &other);

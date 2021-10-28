@@ -8,6 +8,11 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
+struct PF_GLFW_EXPORT Version {
+  int major;
+  int minor;
+  int revision;
+};
 
 struct PF_GLFW_EXPORT CursorPosition {
   double x;

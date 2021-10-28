@@ -23,6 +23,16 @@ project(pf_glfw
 
 set(CMAKE_CXX_STANDARD 20)
 
+option(PF_GLFW_OPENGL "Use the library with OpenGL" ON)
+option(PF_GLFW_VULKAN "Use the library with Vulkan" OFF)
+
+if (PF_GLFW_OPENGL)
+    add_compile_definitions(PF_GLFW_OPENGL)
+endif ()
+if (PF_GLFW_VULKAN)
+    add_compile_definitions(PF_GLFW_VULKANwapwap)
+endif ()
+
 find_package(GLFW3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
 
@@ -32,11 +42,6 @@ CPMAddPackage(
         GIT_TAG master
 )
 
-get_cmake_property(_variableNames VARIABLES)
-list (SORT _variableNames)
-foreach (_variableName ${_variableNames})
-    message(STATUS "${_variableName}=${${_variableName}}")
-endforeach()
 set(SOURCES
         src/pf_glfw/Window.cpp
         src/pf_glfw/Window.h
@@ -53,7 +58,12 @@ set(SOURCES
         src/pf_glfw/Image.h
         src/pf_glfw/enums/CursorShape.h
         src/pf_glfw/Monitor.cpp
-        src/pf_glfw/Monitor.h src/pf_glfw/enums/Connection.h src/pf_glfw/concepts.h src/pf_glfw/structs.h)
+        src/pf_glfw/Monitor.h
+        src/pf_glfw/enums/Connection.h
+        src/pf_glfw/concepts.h
+        src/pf_glfw/structs.h
+        src/pf_glfw/GLFW.cpp
+        src/pf_glfw/GLFW.h src/pf_glfw/fwd.h src/pf_glfw/enums/GraphicsAPI.h src/pf_glfw/enums/Error.h src/pf_glfw/Exception.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")
@@ -146,8 +156,3 @@ install(
         COMPONENT
         Devel
 )
-
-
-### TMP:
-add_executable(test test.cpp)
-target_link_libraries(test pf_glfw)

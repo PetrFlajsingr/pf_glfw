@@ -7,9 +7,9 @@
 
 #include <GLFW/glfw3.h>
 #include <memory>
+#include <pf_glfw/_export.h>
 #include <span>
 #include <vector>
-#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
 
