@@ -163,6 +163,10 @@ const GLFWwindow *Window::getHandle() const {
   return windowHandle;
 }
 
+ButtonState Window::getMouseButtonState(MouseButton button) const {
+  return mouseButtonStates[static_cast<int>(button)];
+}
+
 void Window::setCurrent() {
   glfwMakeContextCurrent(windowHandle);
 }
@@ -174,7 +178,14 @@ void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
 
 void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
-  self->mouseButtonCallback(static_cast<MouseButton>(button), static_cast<MouseButtonAction>(action), Flags<ModifierKey>{static_cast<ModifierKey>(mods)});
+  const auto mbAction = static_cast<MouseButtonAction>(action);
+  const auto mouseButton = static_cast<MouseButton>(button);
+  const auto modFlags = Flags<ModifierKey>{static_cast<ModifierKey>(mods)};
+  if (mbAction == MouseButtonAction::Release && self->mouseButtonStates[button] == ButtonState::Down) {
+    self->mouseClickCallback(mouseButton, modFlags);
+  }
+  self->mouseButtonCallback(mouseButton, mbAction, modFlags);
+  self->mouseButtonStates[button] = mbAction == MouseButtonAction::Press ? ButtonState::Down : ButtonState::Up;
 }
 
 void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos) {

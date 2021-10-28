@@ -22,6 +22,8 @@
 #include <pf_glfw/enums/ModifierKey.h>
 #include <pf_glfw/enums/MouseButton.h>
 #include <pf_glfw/enums/MouseButtonAction.h>
+#include <pf_glfw/enums/ButtonState.h>
+#include <magic_enum.hpp>
 #include <pf_glfw/fwd.h>
 #include <string>
 
@@ -36,6 +38,7 @@
 
 namespace pf::glfw {
 
+// TODO: hints and opengl init stuff
 struct PF_GLFW_EXPORT WindowConfig {
   std::size_t width;
   std::size_t height;
@@ -110,6 +113,8 @@ class PF_GLFW_EXPORT Window {
   [[nodiscard]] GLFWwindow *getHandle();
   [[nodiscard]] const GLFWwindow *getHandle() const;
 
+  [[nodiscard]] ButtonState getMouseButtonState(MouseButton button) const;
+
   // glfwGetInputMode - Window
   // glfwSetInputMode - Window
   // glfwRawMouseMotionSupported - Window
@@ -132,6 +137,11 @@ class PF_GLFW_EXPORT Window {
 
   void setMouseButtonCallback(MouseButtonListener auto &&callback) {
     mouseButtonCallback = std::forward<decltype(callback)>(callback);
+    glfwSetMouseButtonCallback(windowHandle, mouseButtonGLFWCallback);
+  }
+
+  void setMouseClickCallback(MouseClickListener auto &&callback) {
+    mouseClickCallback = std::forward<decltype(callback)>(callback);
     glfwSetMouseButtonCallback(windowHandle, mouseButtonGLFWCallback);
   }
 
@@ -167,6 +177,8 @@ class PF_GLFW_EXPORT Window {
   std::function<void(MouseButton, MouseButtonAction, Flags<ModifierKey>)> mouseButtonCallback;
   static void mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods);
 
+  std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto){};
+
   std::function<void(CursorPosition)> cursorPositionCallback;
   static void cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos);
 
@@ -178,6 +190,9 @@ class PF_GLFW_EXPORT Window {
 
   std::function<void(std::vector<std::filesystem::path>)> dropCallback;
   static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
+
+
+  std::array<ButtonState, magic_enum::enum_count<MouseButton>()> mouseButtonStates{ButtonState::Up};
 
   GLFWwindow *windowHandle;
 };

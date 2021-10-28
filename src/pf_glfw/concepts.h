@@ -25,6 +25,8 @@ concept CharListener = std::is_invocable_r_v<void, F, std::u32string::value_type
 template<typename F>
 concept MouseButtonListener = std::is_invocable_r_v<void, F, MouseButton, MouseButtonAction, Flags<ModifierKey>>;
 template<typename F>
+concept MouseClickListener = std::is_invocable_r_v<void, F, MouseButton, Flags<ModifierKey>>;
+template<typename F>
 concept CursorPositionListener = std::is_invocable_r_v<void, F, CursorPosition>;
 template<typename F>
 concept CursorEnterListener = std::is_invocable_r_v<void, F, CursorEntered>;
