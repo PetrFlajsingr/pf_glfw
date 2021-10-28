@@ -27,13 +27,31 @@ concept MouseButtonListener = std::is_invocable_r_v<void, F, MouseButton, MouseB
 template<typename F>
 concept MouseClickListener = std::is_invocable_r_v<void, F, MouseButton, Flags<ModifierKey>>;
 template<typename F>
-concept CursorPositionListener = std::is_invocable_r_v<void, F, CursorPosition>;
+concept CursorPositionListener = std::is_invocable_r_v<void, F, Position<double>>;
 template<typename F>
 concept CursorEnterListener = std::is_invocable_r_v<void, F, CursorEntered>;
 template<typename F>
 concept ScrollListener = std::is_invocable_r_v<void, F, double, double>;
 template<typename F>
 concept DropListener = std::is_invocable_r_v<void, F, std::vector<std::filesystem::path>>;
+template<typename F>
+concept ContentScaleListener = std::is_invocable_r_v<void, F, Scale>;
+template<typename F>
+concept WindowPositionListener = std::is_invocable_r_v<void, F, Position<int>>;
+template<typename F>
+concept WindowSizeListener = std::is_invocable_r_v<void, F, Size<int>>;
+template<typename F>
+concept WindowCloseListener = std::is_invocable_r_v<void, F>;
+template<typename F>
+concept WindowRefreshListener = std::is_invocable_r_v<void, F>;
+template<typename F>
+concept WindowFocusListener = std::is_invocable_r_v<void, F, bool>;
+template<typename F>
+concept WindowIconifyListener = std::is_invocable_r_v<void, F, bool>;
+template<typename F>
+concept WindowMaximizeListener = std::is_invocable_r_v<void, F, bool>;
+template<typename F>
+concept WindowFramebufferSizeListener = std::is_invocable_r_v<void, F, Size<int>>;
 
 template<typename F>
 concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;

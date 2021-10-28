@@ -73,11 +73,11 @@ class PF_GLFW_EXPORT Window {
   [[nodiscard]] bool shouldClose() const;
   void close();
 
-  [[nodiscard]] KeyAction getLastKeyState(Key key) const;
-  [[nodiscard]] MouseButtonAction getLastMouseButtonState(MouseButton button) const;
+  [[nodiscard]] ButtonState getLastKeyState(Key key) const;
+  [[nodiscard]] ButtonState getLastMouseButtonState(MouseButton button) const;
 
-  [[nodiscard]] CursorPosition getCursorPosition() const;
-  void setCursorPosition(CursorPosition cursorPosition);
+  [[nodiscard]] Position<double> getCursorPosition() const;
+  void setCursorPosition(Position<double> cursorPosition);
 
   [[nodiscard]] std::string getClipboardContents() const;
   void setClipboardContents(const std::string &contents);
@@ -88,27 +88,30 @@ class PF_GLFW_EXPORT Window {
 
   void setIcon(const std::vector<Image> &icons);
 
-  [[nodiscard]] WindowPosition getPosition() const;
-  void setPosition(WindowPosition position);
+  [[nodiscard]] Position<int> getPosition() const;
+  void setPosition(Position<int> position);
 
-  [[nodiscard]] WindowSize getSize() const;
-  void setSize(WindowSize size);
+  [[nodiscard]] Size<int> getSize() const;
+  void setSize(Size<int> size);
 
-  void setSizeLimits(WindowSize minSize, WindowSize maxSize);
+  [[nodiscard]] Box<int> getFrameSize() const;
+
+  [[nodiscard]] Size<int> getFramebufferSize() const;
+
+  [[nodiscard]] Scale getContentScale() const;
+
+  void setSizeLimits(Size<int> minSize, Size<int> maxSize);
 
   void setAspectRatio(int numer, int denom);
 
-  // glfwGetFramebufferSize
-  // glfwGetWindowFrameSize
-  // glfwGetWindowCOntentScale
   [[nodiscard]] float getOpacity() const;
   void setOpacity(float opacity);
 
-  // glfwIconifyWindow
   void restore();
   void maximize();
   void hide();
   void show();
+  void iconify();
   [[nodiscard]] bool isVisible() const;
 
   void setFocus();
@@ -116,10 +119,19 @@ class PF_GLFW_EXPORT Window {
   void requestAttention();
 
   [[nodiscard]] Monitor getMonitor() const;
+  void setMonitor(Monitor &monitor, Position<int> windowPosition, Size<int> windowSize, int refreshRate = DontCare);
 
-  // glfwSetWindowMonitor
-  // glfwGetSetWindowAttrib
-  // glfwPollEvents/waitEvents + timeout
+  [[nodiscard]] bool isDecorated() const;
+  [[nodiscard]] bool isResizable() const;
+  [[nodiscard]] bool isFloating() const;
+  [[nodiscard]] bool isAutoIconify() const;
+  [[nodiscard]] bool isFocusOnShow() const;
+
+  void setDecorated(bool decorated);
+  void setResizable(bool resizable);
+  void setFloating(bool floating);
+  void setAutoIconify(bool autoIconify);
+  void setFocusOnShow(bool focusOnShow);
 
   [[nodiscard]] GLFWwindow *getHandle();
   [[nodiscard]] const GLFWwindow *getHandle() const;
@@ -185,6 +197,51 @@ class PF_GLFW_EXPORT Window {
     glfwSetDropCallback(windowHandle, dropGLFWCallback);
   }
 
+  void setContentScaleCallback(ContentScaleListener auto &&callback) {
+    contentScaleCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowContentScaleCallback(windowHandle, contentScaleGLFWCallback);
+  }
+
+  void setPositionListener(WindowPositionListener auto &&callback) {
+    positionCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowPosCallback(windowHandle, positionGLFWCallback);
+  }
+
+  void setSizeListenerListener(WindowSizeListener auto &&callback) {
+    sizeCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowSizeCallback(windowHandle, sizeGLFWCallback);
+  }
+
+  void setCloseListenerListener(WindowCloseListener auto &&callback) {
+    closeCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowCloseCallback(windowHandle, closeGLFWCallback);
+  }
+
+  void setRefreshListenerListener(WindowRefreshListener auto &&callback) {
+    refreshCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowRefreshCallback(windowHandle, refreshGLFWCallback);
+  }
+
+  void setFocusListenerListener(WindowFocusListener auto &&callback) {
+    focusCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowFocusCallback(windowHandle, focusGLFWCallback);
+  }
+
+  void setIconifyListenerListener(WindowIconifyListener auto &&callback) {
+    iconifyCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowIconifyCallback(windowHandle, iconifyGLFWCallback);
+  }
+
+  void setMaximizeListenerListener(WindowMaximizeListener auto &&callback) {
+    maximizeCallback = std::forward<decltype(callback)>(callback);
+    glfwSetWindowMaximizeCallback(windowHandle, maximizeGLFWCallback);
+  }
+
+  void setFramebufferSizeListenerListener(WindowFramebufferSizeListener auto &&callback) {
+    framebufferSizeCallback = std::forward<decltype(callback)>(callback);
+    glfwSetFramebufferSizeCallback(windowHandle, framebufferSizeGLFWCallback);
+  }
+
   void setInputIgnorePredicate(std::predicate auto &&predicate) {
     inputIgnorePredicate = std::forward<decltype(predicate)>(predicate);
   }
@@ -203,7 +260,7 @@ class PF_GLFW_EXPORT Window {
 
   std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto) {};
 
-  std::function<void(CursorPosition)> cursorPositionCallback = [](auto) {};
+  std::function<void(Position<double>)> cursorPositionCallback = [](auto) {};
   static void cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos);
 
   std::function<void(CursorEntered)> cursorEnterCallback = [](auto) {};
@@ -214,6 +271,33 @@ class PF_GLFW_EXPORT Window {
 
   std::function<void(std::vector<std::filesystem::path>)> dropCallback = [](auto) {};
   static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
+
+  std::function<void(Scale)> contentScaleCallback = [](auto) {};
+  static void contentScaleGLFWCallback(GLFWwindow *window, float xscale, float yscale);
+
+  std::function<void(Position<int>)> positionCallback = [](auto) {};
+  static void positionGLFWCallback(GLFWwindow *window, int xpos, int ypos);
+
+  std::function<void(Size<int>)> sizeCallback = [](auto) {};
+  static void sizeGLFWCallback(GLFWwindow *window, int xpos, int ypos);
+
+  std::function<void()> closeCallback = []() {};
+  static void closeGLFWCallback(GLFWwindow *window);
+
+  std::function<void()> refreshCallback = []() {};
+  static void refreshGLFWCallback(GLFWwindow *window);
+
+  std::function<void(bool)> focusCallback = [](auto) {};
+  static void focusGLFWCallback(GLFWwindow *window, int focused);
+
+  std::function<void(bool)> iconifyCallback = [](auto) {};
+  static void iconifyGLFWCallback(GLFWwindow *window, int iconified);
+
+  std::function<void(bool)> maximizeCallback = [](auto) {};
+  static void maximizeGLFWCallback(GLFWwindow *window, int maximized);
+
+  std::function<void(Size<int>)> framebufferSizeCallback = [](auto) {};
+  static void framebufferSizeGLFWCallback(GLFWwindow *window, int width, int height);
 
   std::function<bool()> inputIgnorePredicate = [] { return false; };
 

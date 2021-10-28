@@ -52,21 +52,23 @@ void Window::close() {
   glfwSetWindowShouldClose(windowHandle, GLFW_TRUE);
 }
 
-KeyAction Window::getLastKeyState(Key key) const {
-  return static_cast<KeyAction>(glfwGetKey(windowHandle, static_cast<int>(key)));
+ButtonState Window::getLastKeyState(Key key) const {
+  const auto keyState = glfwGetKey(windowHandle, static_cast<int>(key));
+  return keyState == GLFW_PRESS ? ButtonState::Down : ButtonState::Up;
 }
 
-MouseButtonAction Window::getLastMouseButtonState(MouseButton button) const {
-  return static_cast<MouseButtonAction>(glfwGetMouseButton(windowHandle, static_cast<int>(button)));
+ButtonState Window::getLastMouseButtonState(MouseButton button) const {
+  const auto buttonState = glfwGetMouseButton(windowHandle, static_cast<int>(button));
+  return buttonState == GLFW_PRESS ? ButtonState::Down : ButtonState::Up;
 }
 
-CursorPosition Window::getCursorPosition() const {
-  CursorPosition result;
+Position<double> Window::getCursorPosition() const {
+  Position<double> result;
   glfwGetCursorPos(windowHandle, &result.x, &result.y);
   return result;
 }
 
-void Window::setCursorPosition(CursorPosition cursorPosition) {
+void Window::setCursorPosition(Position<double> cursorPosition) {
   glfwSetCursorPos(windowHandle, cursorPosition.x, cursorPosition.y);
 }
 
@@ -94,27 +96,45 @@ void Window::setIcon(const std::vector<Image> &icons) {
   glfwSetWindowIcon(windowHandle, imagePtrs.size(), *imagePtrs.data());
 }
 
-WindowPosition Window::getPosition() const {
-  WindowPosition result;
+Position<int> Window::getPosition() const {
+  Position<int> result;
   glfwGetWindowPos(windowHandle, &result.x, &result.y);
   return result;
 }
 
-void Window::setPosition(WindowPosition position) {
+void Window::setPosition(Position<int> position) {
   glfwSetWindowPos(windowHandle, position.x, position.y);
 }
 
-WindowSize Window::getSize() const {
-  WindowSize result;
+Size<int> Window::getSize() const {
+  Size<int> result;
   glfwGetWindowSize(windowHandle, &result.width, &result.height);
   return result;
 }
 
-void Window::setSize(WindowSize size) {
+void Window::setSize(Size<int> size) {
   glfwSetWindowSize(windowHandle, size.width, size.height);
 }
 
-void Window::setSizeLimits(WindowSize minSize, WindowSize maxSize) {
+Box<int> Window::getFrameSize() const {
+  Box<int> result;
+  glfwGetWindowFrameSize(windowHandle, &result.leftTop.x, &result.leftTop.y, &result.rightBottom.x, &result.rightBottom.y);
+  return result;
+}
+
+Size<int> Window::getFramebufferSize() const {
+  Size<int> result;
+  glfwGetFramebufferSize(windowHandle, &result.width, &result.height);
+  return result;
+}
+
+Scale Window::getContentScale() const {
+  Scale result;
+  glfwGetWindowContentScale(windowHandle, &result.x, &result.y);
+  return result;
+}
+
+void Window::setSizeLimits(Size<int> minSize, Size<int> maxSize) {
   glfwSetWindowSizeLimits(windowHandle, minSize.width, minSize.height, maxSize.width, maxSize.height);
 }
 
@@ -146,6 +166,10 @@ void Window::show() {
   glfwShowWindow(windowHandle);
 }
 
+void Window::iconify() {
+  glfwIconifyWindow(windowHandle);
+}
+
 bool Window::isVisible() const {
   return glfwGetWindowAttrib(windowHandle, GLFW_VISIBLE) == GLFW_TRUE;
 }
@@ -160,6 +184,50 @@ void Window::requestAttention() {
 
 Monitor Window::getMonitor() const {
   return Monitor{glfwGetWindowMonitor(windowHandle)};
+}
+
+void Window::setMonitor(Monitor &monitor, Position<int> windowPosition, Size<int> windowSize, int refreshRate) {
+  glfwSetWindowMonitor(windowHandle, monitor.getHandle(), windowPosition.x, windowPosition.y, windowSize.width, windowSize.height, refreshRate);
+}
+
+bool Window::isDecorated() const {
+  return glfwGetWindowAttrib(windowHandle, GLFW_DECORATED) == GLFW_TRUE;
+}
+
+bool Window::isResizable() const {
+  return glfwGetWindowAttrib(windowHandle, GLFW_RESIZABLE) == GLFW_TRUE;
+}
+
+bool Window::isFloating() const {
+  return glfwGetWindowAttrib(windowHandle, GLFW_FLOATING) == GLFW_TRUE;
+}
+
+bool Window::isAutoIconify() const {
+  return glfwGetWindowAttrib(windowHandle, GLFW_AUTO_ICONIFY) == GLFW_TRUE;
+}
+
+bool Window::isFocusOnShow() const {
+  return glfwGetWindowAttrib(windowHandle, GLFW_FOCUS_ON_SHOW) == GLFW_TRUE;
+}
+
+void Window::setDecorated(bool decorated) {
+  glfwSetWindowAttrib(windowHandle, GLFW_DECORATED, decorated ? GLFW_TRUE : GLFW_FALSE);
+}
+
+void Window::setResizable(bool resizable) {
+  glfwSetWindowAttrib(windowHandle, GLFW_RESIZABLE, resizable ? GLFW_TRUE : GLFW_FALSE);
+}
+
+void Window::setFloating(bool floating) {
+  glfwSetWindowAttrib(windowHandle, GLFW_FLOATING, floating ? GLFW_TRUE : GLFW_FALSE);
+}
+
+void Window::setAutoIconify(bool autoIconify) {
+  glfwSetWindowAttrib(windowHandle, GLFW_AUTO_ICONIFY, autoIconify ? GLFW_TRUE : GLFW_FALSE);
+}
+
+void Window::setFocusOnShow(bool focusOnShow) {
+  glfwSetWindowAttrib(windowHandle, GLFW_FOCUS_ON_SHOW, focusOnShow ? GLFW_TRUE : GLFW_FALSE);
 }
 
 GLFWwindow *Window::getHandle() {
@@ -282,6 +350,51 @@ void Window::dropGLFWCallback(GLFWwindow *window, int pathCount, const char *pat
     return std::filesystem::path{path};
   });
   self->dropCallback(fsPaths);
+}
+
+void Window::contentScaleGLFWCallback(GLFWwindow *window, float xscale, float yscale) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->contentScaleCallback({xscale, yscale});
+}
+
+void Window::positionGLFWCallback(GLFWwindow *window, int xpos, int ypos) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->positionCallback({xpos, ypos});
+}
+
+void Window::sizeGLFWCallback(GLFWwindow *window, int xpos, int ypos) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->sizeCallback({xpos, ypos});
+}
+
+void Window::closeGLFWCallback(GLFWwindow *window) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->closeCallback();
+}
+
+void Window::refreshGLFWCallback(GLFWwindow *window) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->refreshCallback();
+}
+
+void Window::focusGLFWCallback(GLFWwindow *window, int focused) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->focusCallback(focused == GLFW_TRUE);
+}
+
+void Window::iconifyGLFWCallback(GLFWwindow *window, int iconified) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->iconifyCallback(iconified == GLFW_TRUE);
+}
+
+void Window::maximizeGLFWCallback(GLFWwindow *window, int maximized) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->maximizeCallback(maximized == GLFW_TRUE);
+}
+
+void Window::framebufferSizeGLFWCallback(GLFWwindow *window, int width, int height) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  self->framebufferSizeCallback({width, height});
 }
 
 void Window::setTitle(const std::string &title) {

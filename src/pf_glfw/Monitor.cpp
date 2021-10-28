@@ -36,26 +36,26 @@ std::vector<Monitor> Monitor::All() {
   return monitors;
 }
 
-MonitorPosition Monitor::getPosition() const {
-  MonitorPosition result;
+Position<int> Monitor::getPosition() const {
+  Position<int> result;
   glfwGetMonitorPos(monitorHandle, &result.x, &result.y);
   return result;
 }
 
-MonitorWorkArea Monitor::getWorkArea() const {
-  MonitorWorkArea result;
+Area<int> Monitor::getWorkArea() const {
+  Area<int> result;
   glfwGetMonitorWorkarea(monitorHandle, &result.position.x, &result.position.y, &result.width, &result.height);
   return result;
 }
 
-MonitorSize Monitor::getPhysicalSize() const {
-  MonitorSize result;
+Size<int> Monitor::getPhysicalSize() const {
+  Size<int> result;
   glfwGetMonitorPhysicalSize(monitorHandle, &result.width, &result.height);
   return result;
 }
 
-MonitorScale Monitor::getScale() const {
-  MonitorScale result;
+Scale Monitor::getScale() const {
+  Scale result;
   glfwGetMonitorContentScale(monitorHandle, &result.x, &result.y);
   return result;
 }

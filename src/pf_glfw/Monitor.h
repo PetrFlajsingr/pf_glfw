@@ -24,10 +24,10 @@ class PF_GLFW_EXPORT Monitor {
   static Monitor Primary();
   static std::vector<Monitor> All();
 
-  [[nodiscard]] MonitorPosition getPosition() const;
-  [[nodiscard]] MonitorWorkArea getWorkArea() const;
-  [[nodiscard]] MonitorSize getPhysicalSize() const;
-  [[nodiscard]] MonitorScale getScale() const;
+  [[nodiscard]] Position<int> getPosition() const;
+  [[nodiscard]] Area<int> getWorkArea() const;
+  [[nodiscard]] Size<int> getPhysicalSize() const;
+  [[nodiscard]] Scale getScale() const;
   [[nodiscard]] std::string getName() const;
 
   void setGamma(float gamma);

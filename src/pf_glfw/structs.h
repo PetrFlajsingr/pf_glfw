@@ -13,33 +13,28 @@ struct PF_GLFW_EXPORT Version {
   int minor;
   int revision;
 };
-
-struct PF_GLFW_EXPORT CursorPosition {
-  double x;
-  double y;
+template <typename T>
+struct PF_GLFW_EXPORT Position {
+  T x;
+  T y;
 };
-struct PF_GLFW_EXPORT WindowPosition {
-  int x;
-  int y;
+template <typename T>
+struct PF_GLFW_EXPORT Size {
+  T width;
+  T height;
 };
-struct PF_GLFW_EXPORT WindowSize {
-  int width;
-  int height;
+template <typename T>
+struct PF_GLFW_EXPORT Area {
+  Position<T> position;
+  T width;
+  T height;
 };
-struct PF_GLFW_EXPORT MonitorPosition {
-  int x;
-  int y;
+template<typename T>
+struct PF_GLFW_EXPORT Box {
+  Position<T> leftTop;
+  Position<T> rightBottom;
 };
-struct PF_GLFW_EXPORT MonitorWorkArea {
-  MonitorPosition position;
-  int width;
-  int height;
-};
-struct PF_GLFW_EXPORT MonitorSize {
-  int width;
-  int height;
-};
-struct PF_GLFW_EXPORT MonitorScale {
+struct PF_GLFW_EXPORT Scale {
   float x;
   float y;
 };
