@@ -12,6 +12,10 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
+// glfwGetTime
+// glfwSetTime
+// glfwGetTimerValue
+// glfwGetTimerFrequency
 
 class PF_GLFW_EXPORT GLFW {
  public:
@@ -26,10 +30,14 @@ class PF_GLFW_EXPORT GLFW {
   void setCurrentWindow(const std::shared_ptr<Window> &window);
 
   void pollEvents();
-
   void waitEvents();
-
   void waitEvents(std::chrono::milliseconds timeout);
+
+  [[nodiscard]] double getTime() const;
+  void setTime(double time);
+
+  [[nodiscard]] std::uint64_t getTimerValue() const;
+  [[nodiscard]] std::uint64_t getTimerFrequency() const;
 
 #ifdef PF_GLFW_OPENGL
   [[nodiscard]] decltype(&glfwGetProcAddress) getLoaderFnc() const;

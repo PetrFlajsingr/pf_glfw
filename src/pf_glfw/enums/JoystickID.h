@@ -9,7 +9,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-enum class PF_GLFW_EXPORT Joystick {
+enum class PF_GLFW_EXPORT JoystickID {
   Joystick1 = GLFW_JOYSTICK_1,
   Joystick2 = GLFW_JOYSTICK_2,
   Joystick3 = GLFW_JOYSTICK_3,

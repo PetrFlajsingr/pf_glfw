@@ -63,7 +63,8 @@ set(SOURCES
         src/pf_glfw/concepts.h
         src/pf_glfw/structs.h
         src/pf_glfw/GLFW.cpp
-        src/pf_glfw/GLFW.h src/pf_glfw/fwd.h
+        src/pf_glfw/GLFW.h
+        src/pf_glfw/fwd.h
         src/pf_glfw/enums/Error.h
         src/pf_glfw/Exception.h
         src/pf_glfw/enums/ButtonState.h
@@ -76,7 +77,12 @@ set(SOURCES
         src/pf_glfw/enums/ContextRobustness.h
         src/pf_glfw/enums/ContextReleaseBehavior.h
         src/pf_glfw/enums/ClientAPI.h
-        src/pf_glfw/enums/GamepadAxis.h src/pf_glfw/enums/GamepadButton.h src/pf_glfw/enums/JoystickHatState.h src/pf_glfw/enums/Joystick.h src/pf_glfw/enums/Focused.h src/pf_glfw/enums/Iconified.h)
+        src/pf_glfw/enums/GamepadAxis.h
+        src/pf_glfw/enums/GamepadButton.h
+        src/pf_glfw/enums/JoystickHatState.h
+        src/pf_glfw/enums/JoystickID.h
+        src/pf_glfw/Joystick.cpp
+        src/pf_glfw/Joystick.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")

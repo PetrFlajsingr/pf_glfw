@@ -29,15 +29,6 @@
 #include <pf_glfw/fwd.h>
 #include <string>
 
-// TODO;
-// input stuff:
-// joystick stuff
-// gamepad stuff
-// glfwGetTime
-// glfwSetTime
-// glfwGetTimerValue
-// glfwGetTimerFrequency
-
 namespace pf::glfw {
 
 struct PF_GLFW_EXPORT WindowConfig {

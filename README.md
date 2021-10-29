@@ -3,9 +3,6 @@
 A c++20 GLFW wrapper.
 
 ### TODOs:
-
-* joystick
-* hints
 * more glfw error checks
 * vulkan
 

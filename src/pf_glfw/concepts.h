@@ -55,6 +55,8 @@ concept WindowFramebufferSizeListener = std::is_invocable_r_v<void, F, Size<int>
 
 template<typename F>
 concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;
+template<typename F>
+concept JoystickConnectionListener = std::is_invocable_r_v<void, F, Connection>;
 }// namespace pf::glfw
 
 #endif//PF_GLFW_CONCEPTS_H

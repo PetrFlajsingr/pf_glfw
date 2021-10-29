@@ -60,6 +60,23 @@ void GLFW::waitEvents() {
 void GLFW::waitEvents(std::chrono::milliseconds timeout) {
   glfwWaitEventsTimeout(timeout.count() / 1000.0);
 }
+
+double GLFW::getTime() const {
+  return glfwGetTime();
+}
+
+void GLFW::setTime(double time) {
+  glfwSetTime(time);
+}
+
+std::uint64_t GLFW::getTimerValue() const {
+  return glfwGetTimerValue();
+}
+
+std::uint64_t GLFW::getTimerFrequency() const {
+  return glfwGetTimerFrequency();
+}
+
 #ifdef PF_GLFW_OPENGL
 decltype(&glfwGetProcAddress) GLFW::getLoaderFnc() const {
   return glfwGetProcAddress;
