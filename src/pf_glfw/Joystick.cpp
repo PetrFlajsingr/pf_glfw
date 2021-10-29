@@ -31,7 +31,7 @@ GamepadState::GamepadState(GLFWgamepadstate *src) {
   axes[5] = src->axes[5];
 }
 
-ButtonState GamepadState::getButtonState(MouseButton button) const {
+ButtonState GamepadState::getButtonState(GamepadButton button) const {
   return buttons[static_cast<int>(button)];
 }
 

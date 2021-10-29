@@ -15,6 +15,7 @@
 #include <pf_glfw/enums/ButtonState.h>
 #include <pf_glfw/enums/Connection.h>
 #include <pf_glfw/enums/GamepadAxis.h>
+#include <pf_glfw/enums/GamepadButton.h>
 #include <pf_glfw/enums/JoystickHatState.h>
 #include <pf_glfw/enums/JoystickID.h>
 #include <span>
@@ -26,7 +27,7 @@ class PF_GLFW_EXPORT GamepadState {
  public:
   explicit GamepadState(GLFWgamepadstate *src);
 
-  [[nodiscard]] ButtonState getButtonState(MouseButton button) const;
+  [[nodiscard]] ButtonState getButtonState(GamepadButton button) const;
 
   [[nodiscard]] float getAxisValue(GamepadAxis axis) const;
 
