@@ -22,7 +22,7 @@
 
 namespace pf::glfw {
 
-class GamepadState {
+class PF_GLFW_EXPORT GamepadState {
  public:
   explicit GamepadState(GLFWgamepadstate *src);
 
