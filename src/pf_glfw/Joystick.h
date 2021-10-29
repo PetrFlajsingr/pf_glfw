@@ -51,6 +51,8 @@ class PF_GLFW_EXPORT Joystick {
 
   [[nodiscard]] std::string getGUID() const;
 
+  [[nodiscard]] JoystickID getID() const;
+
   [[nodiscard]] bool isGamepad() const;
 
   [[nodiscard]] std::string getGamepadName() const;

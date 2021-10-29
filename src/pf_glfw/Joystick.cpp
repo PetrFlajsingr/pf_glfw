@@ -85,6 +85,10 @@ std::string Joystick::getGUID() const {
   return glfwGetJoystickGUID(static_cast<int>(id));
 }
 
+JoystickID Joystick::getID() const {
+  return id;
+}
+
 bool Joystick::isGamepad() const {
   return glfwJoystickIsGamepad(static_cast<int>(id)) == GLFW_TRUE;
 }
