@@ -31,6 +31,14 @@ GamepadState::GamepadState(GLFWgamepadstate *src) {
   axes[5] = src->axes[5];
 }
 
+ButtonState GamepadState::getButtonState(MouseButton button) const {
+  return buttons[static_cast<int>(button)];
+}
+
+float GamepadState::getAxisValue(GamepadAxis axis) const {
+  return axes[static_cast<int>(axis)];
+}
+
 Joystick::Joystick(JoystickID id) : id(id) {
   glfwSetJoystickUserPointer(static_cast<int>(id), this);
 }

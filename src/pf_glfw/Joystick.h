@@ -14,6 +14,7 @@
 #include <pf_glfw/concepts.h>
 #include <pf_glfw/enums/ButtonState.h>
 #include <pf_glfw/enums/Connection.h>
+#include <pf_glfw/enums/GamepadAxis.h>
 #include <pf_glfw/enums/JoystickHatState.h>
 #include <pf_glfw/enums/JoystickID.h>
 #include <span>
@@ -21,8 +22,15 @@
 
 namespace pf::glfw {
 
-struct GamepadState {
+class GamepadState {
+ public:
   explicit GamepadState(GLFWgamepadstate *src);
+
+  [[nodiscard]] ButtonState getButtonState(MouseButton button) const;
+
+  [[nodiscard]] float getAxisValue(GamepadAxis axis) const;
+
+ private:
   std::array<ButtonState, 15> buttons{};
   std::array<float, 6> axes{};
 };
