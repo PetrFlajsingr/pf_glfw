@@ -63,6 +63,7 @@ class PF_GLFW_EXPORT Joystick {
 
   static void SetConnectionCallback(JoystickConnectionListener auto &&callback) {
     OnConnectionChange = std::forward<decltype(callback)>(callback);
+    glfwSetJoystickCallback(joystickGLFWCallback);
   }
 
  private:
