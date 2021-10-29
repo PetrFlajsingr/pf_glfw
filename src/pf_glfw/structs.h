@@ -13,17 +13,17 @@ struct PF_GLFW_EXPORT Version {
   int minor;
   int revision;
 };
-template <typename T>
+template<typename T>
 struct PF_GLFW_EXPORT Position {
   T x;
   T y;
 };
-template <typename T>
+template<typename T>
 struct PF_GLFW_EXPORT Size {
   T width;
   T height;
 };
-template <typename T>
+template<typename T>
 struct PF_GLFW_EXPORT Area {
   Position<T> position;
   T width;

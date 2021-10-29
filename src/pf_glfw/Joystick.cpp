@@ -59,7 +59,7 @@ std::vector<ButtonState> Joystick::getButtonStates() const {
   const auto statesSpan = std::span{states, states + count};
   std::vector<ButtonState> result;
   result.reserve(count);
-  std::ranges::transform(statesSpan, std::back_inserter(result), [] (const auto state) {
+  std::ranges::transform(statesSpan, std::back_inserter(result), [](const auto state) {
     return state == GLFW_PRESS ? ButtonState::Down : ButtonState::Up;
   });
   return result;
@@ -71,7 +71,7 @@ std::vector<Flags<JoystickHatState>> Joystick::getHatStates() const {
   const auto statesSpan = std::span{states, states + count};
   std::vector<Flags<JoystickHatState>> result;
   result.reserve(count);
-  std::ranges::transform(statesSpan, std::back_inserter(result), [] (const auto state) {
+  std::ranges::transform(statesSpan, std::back_inserter(result), [](const auto state) {
     return static_cast<JoystickHatState>(state);
   });
   return result;
@@ -106,7 +106,6 @@ void Joystick::updateGamepadMappings(const std::string &gameControllerDbFmt) {
 }
 
 void Joystick::joystickGLFWCallback(int id, int event) {
-  auto self = reinterpret_cast<Joystick*>(glfwGetJoystickUserPointer(id));
-  self->onConnectionChange(static_cast<Connection>(event));
+  Joystick::OnConnectionChange(static_cast<JoystickID>(id), static_cast<Connection>(event));
 }
-}
+}// namespace pf::glfw

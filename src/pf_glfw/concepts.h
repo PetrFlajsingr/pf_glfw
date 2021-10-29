@@ -9,6 +9,7 @@
 #include <pf_common/enums.h>
 #include <pf_glfw/enums/Connection.h>
 #include <pf_glfw/enums/CursorEntered.h>
+#include <pf_glfw/enums/JoystickID.h>
 #include <pf_glfw/enums/Key.h>
 #include <pf_glfw/enums/KeyAction.h>
 #include <pf_glfw/enums/ModifierKey.h>
@@ -56,7 +57,7 @@ concept WindowFramebufferSizeListener = std::is_invocable_r_v<void, F, Size<int>
 template<typename F>
 concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;
 template<typename F>
-concept JoystickConnectionListener = std::is_invocable_r_v<void, F, Connection>;
+concept JoystickConnectionListener = std::is_invocable_r_v<void, F, JoystickID, Connection>;
 }// namespace pf::glfw
 
 #endif//PF_GLFW_CONCEPTS_H
