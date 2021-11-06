@@ -18,7 +18,7 @@ Window::Window(WindowConfig config) {
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.majorOpenGLVersion);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.minorOpenGLVersion);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+  glfwWindowHint(GLFW_OPENGL_PROFILE, static_cast<int>(config.clientApi));
 #endif
   config.hints.apply();
   windowHandle = glfwCreateWindow(config.width, config.height, config.title.c_str(), monitor, nullptr);
@@ -308,14 +308,14 @@ void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action,
   if (self->inputIgnorePredicate()) {
     return;
   }
-  const auto mbAction = static_cast<MouseButtonAction>(action);
+  const auto state = static_cast<ButtonState>(action);
   const auto mouseButton = static_cast<MouseButton>(button);
   const auto modFlags = Flags<ModifierKey>{static_cast<ModifierKey>(mods)};
-  if (mbAction == MouseButtonAction::Release && self->mouseButtonStates[button] == ButtonState::Down) {
+  if (state == ButtonState::Up && self->mouseButtonStates[button] == ButtonState::Down) {
     self->mouseClickCallback(mouseButton, modFlags);
   }
-  self->mouseButtonCallback(mouseButton, mbAction, modFlags);
-  self->mouseButtonStates[button] = mbAction == MouseButtonAction::Press ? ButtonState::Down : ButtonState::Up;
+  self->mouseButtonCallback(mouseButton, state, modFlags);
+  self->mouseButtonStates[button] = state;
 }
 
 void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos) {

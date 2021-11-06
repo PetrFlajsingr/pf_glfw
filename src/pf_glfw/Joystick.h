@@ -62,6 +62,11 @@ class PF_GLFW_EXPORT Joystick {
 
   void updateGamepadMappings(const std::string &gameControllerDbFmt);
 
+  /*void setGamepadButtonCallback(GamepadButtonListener auto &&callback) {
+    gamepadButtonCallback = std::forward<decltype(callback)>(callback);
+    // TODO
+  }*/
+
   static void SetConnectionCallback(JoystickConnectionListener auto &&callback) {
     OnConnectionChange = std::forward<decltype(callback)>(callback);
     glfwSetJoystickCallback(joystickGLFWCallback);
@@ -70,6 +75,9 @@ class PF_GLFW_EXPORT Joystick {
  private:
   static inline std::function<void(JoystickID, Connection)> OnConnectionChange = [](auto, auto) {};
   static void joystickGLFWCallback(int id, int event);
+
+  //std::function<void(GamepadButton, ButtonState)> gamepadButtonCallback = [](auto, auto) {};
+
   JoystickID id;
 };
 

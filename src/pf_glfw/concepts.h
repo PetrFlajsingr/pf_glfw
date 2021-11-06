@@ -7,14 +7,15 @@
 
 #include <filesystem>
 #include <pf_common/enums.h>
+#include <pf_glfw/enums/ButtonState.h>
 #include <pf_glfw/enums/Connection.h>
 #include <pf_glfw/enums/CursorEntered.h>
+#include <pf_glfw/enums/GamepadButton.h>
 #include <pf_glfw/enums/JoystickID.h>
 #include <pf_glfw/enums/Key.h>
 #include <pf_glfw/enums/KeyAction.h>
 #include <pf_glfw/enums/ModifierKey.h>
 #include <pf_glfw/enums/MouseButton.h>
-#include <pf_glfw/enums/MouseButtonAction.h>
 #include <pf_glfw/structs.h>
 
 namespace pf::glfw {
@@ -24,7 +25,7 @@ concept KeyListener = std::is_invocable_r_v<void, F, Key, KeyAction, Flags<Modif
 template<typename F>
 concept CharListener = std::is_invocable_r_v<void, F, std::u32string::value_type>;
 template<typename F>
-concept MouseButtonListener = std::is_invocable_r_v<void, F, MouseButton, MouseButtonAction, Flags<ModifierKey>>;
+concept MouseButtonListener = std::is_invocable_r_v<void, F, MouseButton, ButtonState, Flags<ModifierKey>>;
 template<typename F>
 concept MouseClickListener = std::is_invocable_r_v<void, F, MouseButton, Flags<ModifierKey>>;
 template<typename F>
@@ -53,6 +54,8 @@ template<typename F>
 concept WindowMaximizeListener = std::is_invocable_r_v<void, F, bool>;
 template<typename F>
 concept WindowFramebufferSizeListener = std::is_invocable_r_v<void, F, Size<int>>;
+template<typename F>
+concept GamepadButtonListener = std::is_invocable_r_v<void, F, GamepadButton, ButtonState>;
 
 template<typename F>
 concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;

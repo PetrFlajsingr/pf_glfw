@@ -16,7 +16,7 @@ namespace pf::glfw {
 // gotta be RGBA
 class PF_GLFW_EXPORT Image {
  public:
-  Image(std::size_t width, std::size_t height, std::span<std::byte> pixels);
+  Image(std::size_t width, std::size_t height, std::span<const std::byte> pixels);
 
   [[nodiscard]] std::size_t getWidth() const;
   [[nodiscard]] std::size_t getHeight() const;

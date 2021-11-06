@@ -10,8 +10,8 @@
 
 namespace pf::glfw {
 enum class PF_GLFW_EXPORT KeyAction {
-  Press = GLFW_PRESS,
-  Release = GLFW_RELEASE,
+  Down = GLFW_PRESS,
+  Up = GLFW_RELEASE,
   Repeat = GLFW_REPEAT
 };
 }

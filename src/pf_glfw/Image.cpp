@@ -7,7 +7,7 @@
 
 namespace pf::glfw {
 
-Image::Image(std::size_t width, std::size_t height, std::span<std::byte> pixels) : imageHandle(std::make_shared<GLFWimage>()),
+Image::Image(std::size_t width, std::size_t height, std::span<const std::byte> pixels) : imageHandle(std::make_shared<GLFWimage>()),
                                                                                    imagePixels(pixels.begin(), pixels.end()) {
   imageHandle->width = width;
   imageHandle->height = height;

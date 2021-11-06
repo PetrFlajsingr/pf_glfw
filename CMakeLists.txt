@@ -49,7 +49,6 @@ set(SOURCES
         src/pf_glfw/enums/KeyAction.h
         src/pf_glfw/enums/ModifierKey.h
         src/pf_glfw/enums/MouseButton.h
-        src/pf_glfw/enums/MouseButtonAction.h
         src/pf_glfw/enums/CursorEntered.h
         src/pf_glfw/enums/Key.cpp
         src/pf_glfw/Cursor.cpp

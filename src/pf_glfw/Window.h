@@ -25,7 +25,6 @@
 #include <pf_glfw/enums/KeyAction.h>
 #include <pf_glfw/enums/ModifierKey.h>
 #include <pf_glfw/enums/MouseButton.h>
-#include <pf_glfw/enums/MouseButtonAction.h>
 #include <pf_glfw/fwd.h>
 #include <string>
 
@@ -49,8 +48,8 @@ struct PF_GLFW_EXPORT WindowConfig {
   WindowHints hints{};
 };
 
-// TODO: double click
 // TODO: return value checks
+// TODO: context sharing
 class PF_GLFW_EXPORT Window {
   friend class GLFW;
 
@@ -246,7 +245,7 @@ class PF_GLFW_EXPORT Window {
   std::function<void(std::u32string::value_type)> charCallback = [](auto) {};
   static void charGLFWCallback(GLFWwindow *window, unsigned int codepoint);
 
-  std::function<void(MouseButton, MouseButtonAction, Flags<ModifierKey>)> mouseButtonCallback = [](auto, auto, auto) {};
+  std::function<void(MouseButton, ButtonState, Flags<ModifierKey>)> mouseButtonCallback = [](auto, auto, auto) {};
   static void mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods);
 
   std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto) {};
