@@ -17,6 +17,10 @@ namespace pf::glfw {
 class PF_GLFW_EXPORT Image {
  public:
   Image(std::size_t width, std::size_t height, std::span<const std::byte> pixels);
+  Image(const Image &other);
+  Image& operator=(const Image &other);
+  Image(Image &&other) noexcept;
+  Image& operator=(Image &&other) noexcept;
 
   [[nodiscard]] std::size_t getWidth() const;
   [[nodiscard]] std::size_t getHeight() const;
@@ -27,7 +31,7 @@ class PF_GLFW_EXPORT Image {
 
  private:
   std::vector<std::byte> imagePixels;
-  std::shared_ptr<GLFWimage> imageHandle;
+  GLFWimage imageHandle;
 };
 
 }// namespace pf::glfw
