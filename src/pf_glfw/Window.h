@@ -197,37 +197,37 @@ class PF_GLFW_EXPORT Window {
     glfwSetWindowPosCallback(windowHandle, positionGLFWCallback);
   }
 
-  void setSizeListenerListener(WindowSizeListener auto &&callback) {
+  void setSizeListener(WindowSizeListener auto &&callback) {
     sizeCallback = std::forward<decltype(callback)>(callback);
     glfwSetWindowSizeCallback(windowHandle, sizeGLFWCallback);
   }
 
-  void setCloseListenerListener(WindowCloseListener auto &&callback) {
+  void setCloseListener(WindowCloseListener auto &&callback) {
     closeCallback = std::forward<decltype(callback)>(callback);
     glfwSetWindowCloseCallback(windowHandle, closeGLFWCallback);
   }
 
-  void setRefreshListenerListener(WindowRefreshListener auto &&callback) {
+  void setRefreshListener(WindowRefreshListener auto &&callback) {
     refreshCallback = std::forward<decltype(callback)>(callback);
     glfwSetWindowRefreshCallback(windowHandle, refreshGLFWCallback);
   }
 
-  void setFocusListenerListener(WindowFocusListener auto &&callback) {
+  void setFocusListener(WindowFocusListener auto &&callback) {
     focusCallback = std::forward<decltype(callback)>(callback);
     glfwSetWindowFocusCallback(windowHandle, focusGLFWCallback);
   }
 
-  void setIconifyListenerListener(WindowIconifyListener auto &&callback) {
+  void setIconifyListener(WindowIconifyListener auto &&callback) {
     iconifyCallback = std::forward<decltype(callback)>(callback);
     glfwSetWindowIconifyCallback(windowHandle, iconifyGLFWCallback);
   }
 
-  void setMaximizeListenerListener(WindowMaximizeListener auto &&callback) {
+  void setMaximizeListener(WindowMaximizeListener auto &&callback) {
     maximizeCallback = std::forward<decltype(callback)>(callback);
     glfwSetWindowMaximizeCallback(windowHandle, maximizeGLFWCallback);
   }
 
-  void setFramebufferSizeListenerListener(WindowFramebufferSizeListener auto &&callback) {
+  void setFramebufferSizeListener(WindowFramebufferSizeListener auto &&callback) {
     framebufferSizeCallback = std::forward<decltype(callback)>(callback);
     glfwSetFramebufferSizeCallback(windowHandle, framebufferSizeGLFWCallback);
   }
