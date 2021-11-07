@@ -102,7 +102,10 @@ class PF_GLFW_EXPORT Window {
   void hide();
   void show();
   void iconify();
+
   [[nodiscard]] bool isVisible() const;
+  [[nodiscard]] bool isMaximized() const;
+
 
   void setFocus();
 

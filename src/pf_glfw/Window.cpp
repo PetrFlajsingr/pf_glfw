@@ -174,6 +174,10 @@ bool Window::isVisible() const {
   return glfwGetWindowAttrib(windowHandle, GLFW_VISIBLE) == GLFW_TRUE;
 }
 
+bool Window::isMaximized() const{
+  return glfwGetWindowAttrib(windowHandle, GLFW_MAXIMIZED) == GLFW_TRUE;
+}
+
 void Window::setFocus() {
   glfwFocusWindow(windowHandle);
 }
