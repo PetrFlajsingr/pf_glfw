@@ -81,5 +81,9 @@ std::uint64_t GLFW::getTimerFrequency() const {
 decltype(&glfwGetProcAddress) GLFW::getLoaderFnc() const {
   return glfwGetProcAddress;
 }
+
+void GLFW::setSwapInterval(std::size_t interval){
+  glfwSwapInterval(static_cast<int>(interval));
+}
 #endif
 }// namespace pf::glfw

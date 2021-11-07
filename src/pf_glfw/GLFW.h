@@ -38,6 +38,9 @@ class PF_GLFW_EXPORT GLFW {
 
   [[nodiscard]] std::uint64_t getTimerValue() const;
   [[nodiscard]] std::uint64_t getTimerFrequency() const;
+  #ifdef PF_GLFW_OPENGL
+  void setSwapInterval(std::size_t interval);
+  #endif
 
 #ifdef PF_GLFW_OPENGL
   [[nodiscard]] decltype(&glfwGetProcAddress) getLoaderFnc() const;
