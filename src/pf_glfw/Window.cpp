@@ -238,10 +238,6 @@ const GLFWwindow *Window::getHandle() const {
   return windowHandle;
 }
 
-ButtonState Window::getMouseButtonState(MouseButton button) const {
-  return mouseButtonStates[static_cast<int>(button)];
-}
-
 CursorBehavior Window::getCursorBehavior() const {
   return static_cast<CursorBehavior>(glfwGetInputMode(windowHandle, GLFW_CURSOR));
 }

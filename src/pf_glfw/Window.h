@@ -126,8 +126,6 @@ class PF_GLFW_EXPORT Window {
   [[nodiscard]] GLFWwindow *getHandle();
   [[nodiscard]] const GLFWwindow *getHandle() const;
 
-  [[nodiscard]] ButtonState getMouseButtonState(MouseButton button) const;
-
   [[nodiscard]] CursorBehavior getCursorBehavior() const;
   [[nodiscard]] bool isStickyKeys() const;
   [[nodiscard]] bool isStickyMouseButtons() const;
