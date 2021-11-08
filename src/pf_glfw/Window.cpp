@@ -186,11 +186,16 @@ void Window::requestAttention() {
   glfwRequestWindowAttention(windowHandle);
 }
 
-Monitor Window::getMonitor() const {
-  return Monitor{glfwGetWindowMonitor(windowHandle)};
+std::optional<Monitor> Window::getFullscreenMonitor() const {
+  const auto monitorPtr = glfwGetWindowMonitor(windowHandle);
+  if (monitorPtr == nullptr) {
+    return std::nullopt;
+  }
+  return Monitor{monitorPtr};
 }
 
 void Window::setMonitor(Monitor &monitor, Position<int> windowPosition, Size<int> windowSize, int refreshRate) {
+  // TODO: change this, use it to implement fullscreen etc.
   glfwSetWindowMonitor(windowHandle, monitor.getHandle(), windowPosition.x, windowPosition.y, windowSize.width, windowSize.height, refreshRate);
 }
 

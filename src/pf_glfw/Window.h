@@ -111,7 +111,7 @@ class PF_GLFW_EXPORT Window {
 
   void requestAttention();
 
-  [[nodiscard]] Monitor getMonitor() const;
+  [[nodiscard]] std::optional<Monitor> getFullscreenMonitor() const;
   void setMonitor(Monitor &monitor, Position<int> windowPosition, Size<int> windowSize, int refreshRate = DontCare);
 
   [[nodiscard]] bool isDecorated() const;

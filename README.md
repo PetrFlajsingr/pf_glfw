@@ -5,6 +5,7 @@ A c++20 GLFW wrapper.
 ### TODOs:
 * more glfw error checks
 * vulkan
+* glfwGetWindowAttrib
 
 Example usage:
 
