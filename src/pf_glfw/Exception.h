@@ -18,7 +18,7 @@ class PF_GLFW_EXPORT Exception : public std::exception {
   template<typename... Args>
   explicit Exception(Error error, std::string message) : eType(error), msg(std::move(message)) {
   }
-  [[nodiscard]] inline const char *what() const override {
+  [[nodiscard]] inline const char *what() const noexcept override {
     return msg.c_str();
   }
   [[nodiscard]] inline Error type() const {
