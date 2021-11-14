@@ -325,11 +325,7 @@ void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action,
   const auto state = static_cast<ButtonState>(action);
   const auto mouseButton = static_cast<MouseButton>(button);
   const auto modFlags = Flags<ModifierKey>{static_cast<ModifierKey>(mods)};
-  if (state == ButtonState::Up && self->mouseButtonStates[button] == ButtonState::Down) {
-    self->mouseClickCallback(mouseButton, modFlags);
-  }
   self->mouseButtonCallback(mouseButton, state, modFlags);
-  self->mouseButtonStates[button] = state;
 }
 
 void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos) {

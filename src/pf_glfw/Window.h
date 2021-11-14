@@ -148,89 +148,100 @@ class PF_GLFW_EXPORT Window {
   void swapBuffers();
 #endif
 
-  void setKeyCallback(KeyListener auto &&callback) {
+  void setKeyCallback(KeyListener auto &&callback, bool callPreviousCallback = false) {
     keyCallback = std::forward<decltype(callback)>(callback);
-    glfwSetKeyCallback(windowHandle, keyGLFWCallback);
+    const auto previousCallback = glfwSetKeyCallback(windowHandle, keyGLFWCallback);
+    previousCallbacks.glfWkeyfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setCharCallback(CharListener auto &&callback) {
+  void setCharCallback(CharListener auto &&callback, bool callPreviousCallback = false) {
     charCallback = std::forward<decltype(callback)>(callback);
-    glfwSetCharCallback(windowHandle, charGLFWCallback);
+    const auto previousCallback = glfwSetCharCallback(windowHandle, charGLFWCallback);
+    previousCallbacks.glfWcharfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setMouseButtonCallback(MouseButtonListener auto &&callback) {
+  void setMouseButtonCallback(MouseButtonListener auto &&callback, bool callPreviousCallback = false) {
     mouseButtonCallback = std::forward<decltype(callback)>(callback);
-    glfwSetMouseButtonCallback(windowHandle, mouseButtonGLFWCallback);
+    const auto previousCallback = glfwSetMouseButtonCallback(windowHandle, mouseButtonGLFWCallback);
+    previousCallbacks.glfWmousebuttonfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setMouseClickCallback(MouseClickListener auto &&callback) {
-    mouseClickCallback = std::forward<decltype(callback)>(callback);
-    glfwSetMouseButtonCallback(windowHandle, mouseButtonGLFWCallback);
-  }
-
-  void setCursorPositionCallback(CursorPositionListener auto &&callback) {
+  void setCursorPositionCallback(CursorPositionListener auto &&callback, bool callPreviousCallback = false) {
     cursorPositionCallback = std::forward<decltype(callback)>(callback);
-    glfwSetCursorPosCallback(windowHandle, cursorPositionGLFWCallback);
+    const auto previousCallback = glfwSetCursorPosCallback(windowHandle, cursorPositionGLFWCallback);
+    previousCallbacks.glfWcursorposfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setCursorEnterCallback(CursorEnterListener auto &&callback) {
+  void setCursorEnterCallback(CursorEnterListener auto &&callback, bool callPreviousCallback = false) {
     cursorEnterCallback = std::forward<decltype(callback)>(callback);
-    glfwSetCursorEnterCallback(windowHandle, cursorEnterGLFWCallback);
+    const auto previousCallback = glfwSetCursorEnterCallback(windowHandle, cursorEnterGLFWCallback);
+    previousCallbacks.glfWcursorenterfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setScrollCallback(ScrollListener auto &&callback) {
+  void setScrollCallback(ScrollListener auto &&callback, bool callPreviousCallback = false) {
     scrollCallback = std::forward<decltype(callback)>(callback);
-    glfwSetScrollCallback(windowHandle, scrollGLFWCallback);
+    const auto previousCallback = glfwSetScrollCallback(windowHandle, scrollGLFWCallback);
+    previousCallbacks.glfWscrollfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setDropCallback(DropListener auto &&callback) {
+  void setDropCallback(DropListener auto &&callback, bool callPreviousCallback = false) {
     dropCallback = std::forward<decltype(callback)>(callback);
-    glfwSetDropCallback(windowHandle, dropGLFWCallback);
+    const auto previousCallback = glfwSetDropCallback(windowHandle, dropGLFWCallback);
+    previousCallbacks.glfWdropfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setContentScaleCallback(ContentScaleListener auto &&callback) {
+  void setContentScaleCallback(ContentScaleListener auto &&callback, bool callPreviousCallback = false) {
     contentScaleCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowContentScaleCallback(windowHandle, contentScaleGLFWCallback);
+    const auto previousCallback = glfwSetWindowContentScaleCallback(windowHandle, contentScaleGLFWCallback);
+    previousCallbacks.glfWwindowcontentscalefun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setPositionListener(WindowPositionListener auto &&callback) {
+  void setPositionListener(WindowPositionListener auto &&callback, bool callPreviousCallback = false) {
     positionCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowPosCallback(windowHandle, positionGLFWCallback);
+    const auto previousCallback = glfwSetWindowPosCallback(windowHandle, positionGLFWCallback);
+    previousCallbacks.glfWwindowposfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setSizeListener(WindowSizeListener auto &&callback) {
+  void setSizeListener(WindowSizeListener auto &&callback, bool callPreviousCallback = false) {
     sizeCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowSizeCallback(windowHandle, sizeGLFWCallback);
+    const auto previousCallback = glfwSetWindowSizeCallback(windowHandle, sizeGLFWCallback);
+    previousCallbacks.glfWwindowsizefun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setCloseListener(WindowCloseListener auto &&callback) {
+  void setCloseListener(WindowCloseListener auto &&callback, bool callPreviousCallback = false) {
     closeCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowCloseCallback(windowHandle, closeGLFWCallback);
+    const auto previousCallback = glfwSetWindowCloseCallback(windowHandle, closeGLFWCallback);
+    previousCallbacks.glfWwindowclosefun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setRefreshListener(WindowRefreshListener auto &&callback) {
+  void setRefreshListener(WindowRefreshListener auto &&callback, bool callPreviousCallback = false) {
     refreshCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowRefreshCallback(windowHandle, refreshGLFWCallback);
+    const auto previousCallback = glfwSetWindowRefreshCallback(windowHandle, refreshGLFWCallback);
+    previousCallbacks.glfWwindowrefreshfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setFocusListener(WindowFocusListener auto &&callback) {
+  void setFocusListener(WindowFocusListener auto &&callback, bool callPreviousCallback = false) {
     focusCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowFocusCallback(windowHandle, focusGLFWCallback);
+    const auto previousCallback = glfwSetWindowFocusCallback(windowHandle, focusGLFWCallback);
+    previousCallbacks.glfWwindowfocusfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setIconifyListener(WindowIconifyListener auto &&callback) {
+  void setIconifyListener(WindowIconifyListener auto &&callback, bool callPreviousCallback = false) {
     iconifyCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowIconifyCallback(windowHandle, iconifyGLFWCallback);
+    const auto previousCallback = glfwSetWindowIconifyCallback(windowHandle, iconifyGLFWCallback);
+    previousCallbacks.glfWwindowiconifyfun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setMaximizeListener(WindowMaximizeListener auto &&callback) {
+  void setMaximizeListener(WindowMaximizeListener auto &&callback, bool callPreviousCallback = false) {
     maximizeCallback = std::forward<decltype(callback)>(callback);
-    glfwSetWindowMaximizeCallback(windowHandle, maximizeGLFWCallback);
+    const auto previousCallback = glfwSetWindowMaximizeCallback(windowHandle, maximizeGLFWCallback);
+    previousCallbacks.glfWwindowmaximizefun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setFramebufferSizeListener(WindowFramebufferSizeListener auto &&callback) {
+  void setFramebufferSizeListener(WindowFramebufferSizeListener auto &&callback, bool callPreviousCallback = false) {
     framebufferSizeCallback = std::forward<decltype(callback)>(callback);
-    glfwSetFramebufferSizeCallback(windowHandle, framebufferSizeGLFWCallback);
+    const auto previousCallback = glfwSetFramebufferSizeCallback(windowHandle, framebufferSizeGLFWCallback);
+    previousCallbacks.glfWframebuffersizefun = callPreviousCallback ? previousCallback : nullptr;
   }
 
   void setInputIgnorePredicate(std::predicate auto &&predicate) {
@@ -257,7 +268,6 @@ class PF_GLFW_EXPORT Window {
   using MaximizeCallback = std::function<void(bool)>;
   using FrameBufferSizeCallback = std::function<void(Size<int>)>;
 
-  using MouseClickCallback = std::function<void(MouseButton, Flags<ModifierKey>)>;
 
   KeyCallback keyCallback = [](auto, auto, auto) {};
   static void keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
@@ -267,8 +277,6 @@ class PF_GLFW_EXPORT Window {
 
   MouseButtonCallback mouseButtonCallback = [](auto, auto, auto) {};
   static void mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods);
-
-  MouseClickCallback mouseClickCallback = [](auto, auto) {};
 
   CursorPositionCallback cursorPositionCallback = [](auto) {};
   static void cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos);
@@ -310,8 +318,6 @@ class PF_GLFW_EXPORT Window {
   static void framebufferSizeGLFWCallback(GLFWwindow *window, int width, int height);
 
   std::function<bool()> inputIgnorePredicate = [] { return false; };
-
-  std::array<ButtonState, magic_enum::enum_count<MouseButton>()> mouseButtonStates{ButtonState::Up};
 
   GLFWwindow *windowHandle;
 
