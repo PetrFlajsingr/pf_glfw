@@ -305,6 +305,9 @@ void Window::setCurrent() {
 
 void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWcharfun != nullptr) {
+      self->previousCallbacks.glfWcharfun(window, codepoint);
+  }
   if (self->inputIgnorePredicate()) {
     return;
   }
@@ -313,6 +316,9 @@ void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
 
 void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWmousebuttonfun != nullptr) {
+      self->previousCallbacks.glfWmousebuttonfun(window, button, action, mods);
+  }
   if (self->inputIgnorePredicate()) {
     return;
   }
@@ -328,6 +334,9 @@ void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action,
 
 void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWcursorposfun != nullptr) {
+      self->previousCallbacks.glfWcursorposfun(window, xpos, ypos);
+  }
   if (self->inputIgnorePredicate()) {
     return;
   }
@@ -336,6 +345,9 @@ void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double 
 
 void Window::cursorEnterGLFWCallback(GLFWwindow *window, int entered) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWcursorenterfun != nullptr) {
+      self->previousCallbacks.glfWcursorenterfun(window, entered);
+  }
   if (self->inputIgnorePredicate()) {
     return;
   }
@@ -344,6 +356,9 @@ void Window::cursorEnterGLFWCallback(GLFWwindow *window, int entered) {
 
 void Window::scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffset) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWscrollfun != nullptr) {
+      self->previousCallbacks.glfWscrollfun(window, xoffset, yoffset);
+  }
   if (self->inputIgnorePredicate()) {
     return;
   }
@@ -352,6 +367,9 @@ void Window::scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffs
 
 void Window::dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWdropfun != nullptr) {
+      self->previousCallbacks.glfWdropfun(window, pathCount, paths);
+  }
   std::vector<std::filesystem::path> fsPaths;
   fsPaths.reserve(pathCount);
   std::ranges::transform(std::span{paths, static_cast<std::size_t>(pathCount)}, std::back_inserter(fsPaths), [](const auto path) {
@@ -362,46 +380,73 @@ void Window::dropGLFWCallback(GLFWwindow *window, int pathCount, const char *pat
 
 void Window::contentScaleGLFWCallback(GLFWwindow *window, float xscale, float yscale) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowcontentscalefun != nullptr) {
+      self->previousCallbacks.glfWwindowcontentscalefun(window, xscale, yscale);
+  }
   self->contentScaleCallback({xscale, yscale});
 }
 
 void Window::positionGLFWCallback(GLFWwindow *window, int xpos, int ypos) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowposfun != nullptr) {
+      self->previousCallbacks.glfWwindowposfun(window, xpos, ypos);
+  }
   self->positionCallback({xpos, ypos});
 }
 
-void Window::sizeGLFWCallback(GLFWwindow *window, int xpos, int ypos) {
+void Window::sizeGLFWCallback(GLFWwindow *window, int width, int height) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
-  self->sizeCallback({xpos, ypos});
+  if (self->previousCallbacks.glfWwindowsizefun != nullptr) {
+      self->previousCallbacks.glfWwindowsizefun(window, width, height);
+  }
+  self->sizeCallback({width, height});
 }
 
 void Window::closeGLFWCallback(GLFWwindow *window) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowclosefun != nullptr) {
+      self->previousCallbacks.glfWwindowclosefun(window);
+  }
   self->closeCallback();
 }
 
 void Window::refreshGLFWCallback(GLFWwindow *window) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowrefreshfun != nullptr) {
+      self->previousCallbacks.glfWwindowrefreshfun(window);
+  }
   self->refreshCallback();
 }
 
 void Window::focusGLFWCallback(GLFWwindow *window, int focused) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowfocusfun != nullptr) {
+      self->previousCallbacks.glfWwindowfocusfun(window, focused);
+  }
   self->focusCallback(focused == GLFW_TRUE);
 }
 
 void Window::iconifyGLFWCallback(GLFWwindow *window, int iconified) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowiconifyfun != nullptr) {
+      self->previousCallbacks.glfWwindowiconifyfun(window, iconified);
+  }
   self->iconifyCallback(iconified == GLFW_TRUE);
 }
 
 void Window::maximizeGLFWCallback(GLFWwindow *window, int maximized) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWwindowmaximizefun != nullptr) {
+      self->previousCallbacks.glfWwindowmaximizefun(window, maximized);
+  }
   self->maximizeCallback(maximized == GLFW_TRUE);
 }
 
 void Window::framebufferSizeGLFWCallback(GLFWwindow *window, int width, int height) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWframebuffersizefun != nullptr) {
+      self->previousCallbacks.glfWframebuffersizefun(window, width, height);
+  }
   self->framebufferSizeCallback({width, height});
 }
 

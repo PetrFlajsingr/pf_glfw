@@ -249,7 +249,7 @@ class PF_GLFW_EXPORT Window {
   using DropCallback = std::function<void(std::vector<std::filesystem::path>)>;
   using ContentScaleCallback = std::function<void(Scale)>;
   using PositionCallback = std::function<void(Position<int>)>;
-  using ScaleCallback = std::function<void(Size<int>)>;
+  using SizeCallback = std::function<void(Size<int>)>;
   using CloseCallback = std::function<void()>;
   using RefreshCallback = std::function<void()>;
   using FocusCallback = std::function<void(bool)>;
@@ -288,8 +288,8 @@ class PF_GLFW_EXPORT Window {
   PositionCallback positionCallback = [](auto) {};
   static void positionGLFWCallback(GLFWwindow *window, int xpos, int ypos);
 
-  ScaleCallback sizeCallback = [](auto) {};
-  static void sizeGLFWCallback(GLFWwindow *window, int xpos, int ypos);
+  SizeCallback sizeCallback = [](auto) {};
+  static void sizeGLFWCallback(GLFWwindow *window, int width, int height);
 
   CloseCallback closeCallback = []() {};
   static void closeGLFWCallback(GLFWwindow *window);
@@ -314,6 +314,25 @@ class PF_GLFW_EXPORT Window {
   std::array<ButtonState, magic_enum::enum_count<MouseButton>()> mouseButtonStates{ButtonState::Up};
 
   GLFWwindow *windowHandle;
+
+  struct {
+      GLFWkeyfun glfWkeyfun = nullptr;
+      GLFWcharfun glfWcharfun = nullptr;
+      GLFWmousebuttonfun glfWmousebuttonfun = nullptr;
+      GLFWcursorposfun glfWcursorposfun = nullptr;
+      GLFWcursorenterfun glfWcursorenterfun = nullptr;
+      GLFWscrollfun glfWscrollfun = nullptr;
+      GLFWdropfun glfWdropfun = nullptr;
+      GLFWwindowcontentscalefun glfWwindowcontentscalefun = nullptr;
+      GLFWwindowposfun glfWwindowposfun = nullptr;
+      GLFWwindowsizefun glfWwindowsizefun = nullptr;
+      GLFWwindowclosefun glfWwindowclosefun = nullptr;
+      GLFWwindowrefreshfun glfWwindowrefreshfun = nullptr;
+      GLFWwindowfocusfun glfWwindowfocusfun = nullptr;
+      GLFWwindowiconifyfun glfWwindowiconifyfun = nullptr;
+      GLFWwindowmaximizefun glfWwindowmaximizefun = nullptr;
+      GLFWframebuffersizefun glfWframebuffersizefun = nullptr;
+  } previousCallbacks;
 };
 
 }// namespace pf::glfw
