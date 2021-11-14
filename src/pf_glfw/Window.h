@@ -240,54 +240,73 @@ class PF_GLFW_EXPORT Window {
  private:
   explicit Window(WindowConfig config);
 
-  std::function<void(Key, KeyAction, Flags<ModifierKey>)> keyCallback = [](auto, auto, auto) {};
+  using KeyCallback = std::function<void(Key, KeyAction, Flags<ModifierKey>)>;
+  using CharCallback = std::function<void(std::u32string::value_type)>;
+  using MouseButtonCallback = std::function<void(MouseButton, ButtonState, Flags<ModifierKey>)>;
+  using CursorPositionCallback = std::function<void(Position<double>)>;
+  using CursorEnterCallback = std::function<void(CursorEntered)>;
+  using ScrollCallback = std::function<void(double, double)>;
+  using DropCallback = std::function<void(std::vector<std::filesystem::path>)>;
+  using ContentScaleCallback = std::function<void(Scale)>;
+  using PositionCallback = std::function<void(Position<int>)>;
+  using ScaleCallback = std::function<void(Size<int>)>;
+  using CloseCallback = std::function<void()>;
+  using RefreshCallback = std::function<void()>;
+  using FocusCallback = std::function<void(bool)>;
+  using IconifyCallback = std::function<void(bool)>;
+  using MaximizeCallback = std::function<void(bool)>;
+  using FrameBufferSizeCallback = std::function<void(Size<int>)>;
+
+  using MouseClickCallback = std::function<void(MouseButton, Flags<ModifierKey>)>;
+
+  KeyCallback keyCallback = [](auto, auto, auto) {};
   static void keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
-  std::function<void(std::u32string::value_type)> charCallback = [](auto) {};
+  CharCallback charCallback = [](auto) {};
   static void charGLFWCallback(GLFWwindow *window, unsigned int codepoint);
 
-  std::function<void(MouseButton, ButtonState, Flags<ModifierKey>)> mouseButtonCallback = [](auto, auto, auto) {};
+  MouseButtonCallback mouseButtonCallback = [](auto, auto, auto) {};
   static void mouseButtonGLFWCallback(GLFWwindow *window, int button, int action, int mods);
 
-  std::function<void(MouseButton, Flags<ModifierKey>)> mouseClickCallback = [](auto, auto) {};
+  MouseClickCallback mouseClickCallback = [](auto, auto) {};
 
-  std::function<void(Position<double>)> cursorPositionCallback = [](auto) {};
+  CursorPositionCallback cursorPositionCallback = [](auto) {};
   static void cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double ypos);
 
-  std::function<void(CursorEntered)> cursorEnterCallback = [](auto) {};
+  CursorEnterCallback cursorEnterCallback = [](auto) {};
   static void cursorEnterGLFWCallback(GLFWwindow *window, int entered);
 
-  std::function<void(double, double)> scrollCallback = [](auto, auto) {};
+  ScrollCallback scrollCallback = [](auto, auto) {};
   static void scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffset);
 
-  std::function<void(std::vector<std::filesystem::path>)> dropCallback = [](auto) {};
+  DropCallback dropCallback = [](auto) {};
   static void dropGLFWCallback(GLFWwindow *window, int pathCount, const char *paths[]);
 
-  std::function<void(Scale)> contentScaleCallback = [](auto) {};
+  ContentScaleCallback contentScaleCallback = [](auto) {};
   static void contentScaleGLFWCallback(GLFWwindow *window, float xscale, float yscale);
 
-  std::function<void(Position<int>)> positionCallback = [](auto) {};
+  PositionCallback positionCallback = [](auto) {};
   static void positionGLFWCallback(GLFWwindow *window, int xpos, int ypos);
 
-  std::function<void(Size<int>)> sizeCallback = [](auto) {};
+  ScaleCallback sizeCallback = [](auto) {};
   static void sizeGLFWCallback(GLFWwindow *window, int xpos, int ypos);
 
-  std::function<void()> closeCallback = []() {};
+  CloseCallback closeCallback = []() {};
   static void closeGLFWCallback(GLFWwindow *window);
 
-  std::function<void()> refreshCallback = []() {};
+  RefreshCallback refreshCallback = []() {};
   static void refreshGLFWCallback(GLFWwindow *window);
 
-  std::function<void(bool)> focusCallback = [](auto) {};
+  FocusCallback focusCallback = [](auto) {};
   static void focusGLFWCallback(GLFWwindow *window, int focused);
 
-  std::function<void(bool)> iconifyCallback = [](auto) {};
+  IconifyCallback iconifyCallback = [](auto) {};
   static void iconifyGLFWCallback(GLFWwindow *window, int iconified);
 
-  std::function<void(bool)> maximizeCallback = [](auto) {};
+  MaximizeCallback maximizeCallback = [](auto) {};
   static void maximizeGLFWCallback(GLFWwindow *window, int maximized);
 
-  std::function<void(Size<int>)> framebufferSizeCallback = [](auto) {};
+  FrameBufferSizeCallback framebufferSizeCallback = [](auto) {};
   static void framebufferSizeGLFWCallback(GLFWwindow *window, int width, int height);
 
   std::function<bool()> inputIgnorePredicate = [] { return false; };
