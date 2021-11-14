@@ -18,10 +18,13 @@ auto window = glfw.createWindow({.width = 1200,
                                  .majorOpenGLVersion = 4,
                                  .minorOpenGLVersion = 6});
 
-window->setMouseClickCallback([](pf::glfw::MouseButton button, pf::Flags<pf::glfw::ModifierKey> mods) {
-  std::cout << "Button pressed";
+window->setMouseButtonCallback([](pf::glfw::MouseButton button, pf::glfw::ButtonState state, pf::Flags<pf::glfw::ModifierKey> mods) {
+  switch (state) {
+    case pf::glfw::ButtonState::Down: std::cout << "Button down"; break;
+    case pf::glfw::ButtonState::Up: std::cout << "Button up"; break;
+  }
   if (mods & pf::glfw::ModifierKey::Shift) {
-    std::cout << "with shift";
+    std::cout << " with shift";
   }
 });
 
