@@ -74,6 +74,9 @@ void Window::setCursorPosition(Position<double> cursorPosition) {
 
 void Window::keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
   self->keyCallback(static_cast<Key>(key), static_cast<KeyAction>(action), Flags<ModifierKey>{static_cast<ModifierKey>(mods)});
 }
 
