@@ -72,14 +72,6 @@ void Window::setCursorPosition(Position<double> cursorPosition) {
   glfwSetCursorPos(windowHandle, cursorPosition.x, cursorPosition.y);
 }
 
-void Window::keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
-  if (self->inputIgnorePredicate()) {
-    return;
-  }
-  self->keyCallback(static_cast<Key>(key), static_cast<KeyAction>(action), Flags<ModifierKey>{static_cast<ModifierKey>(mods)});
-}
-
 std::string Window::getClipboardContents() const {
   return std::string{glfwGetClipboardString(windowHandle)};
 }
@@ -301,6 +293,17 @@ void Window::setRawMouseMotionEnabled(bool enabled) {
 
 void Window::setCurrent() {
   glfwMakeContextCurrent(windowHandle);
+}
+
+void Window::keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+  auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
+  if (self->previousCallbacks.glfWkeyfun != nullptr) {
+      self->previousCallbacks.glfWkeyfun(window, key, scancode, action, mods);
+  }
+  if (self->inputIgnorePredicate()) {
+    return;
+  }
+  self->keyCallback(static_cast<Key>(key), static_cast<KeyAction>(action), Flags<ModifierKey>{static_cast<ModifierKey>(mods)});
 }
 
 void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
