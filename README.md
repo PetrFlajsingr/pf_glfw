@@ -18,7 +18,9 @@ auto window = glfw.createWindow({.width = 1200,
                                  .majorOpenGLVersion = 4,
                                  .minorOpenGLVersion = 6});
 
-window->setMouseButtonCallback([](pf::glfw::MouseButton button, pf::glfw::ButtonState state, pf::Flags<pf::glfw::ModifierKey> mods) {
+window->setMouseButtonCallback([](pf::glfw::MouseButton button, 
+                                  pf::glfw::ButtonState state, 
+                                  pf::Flags<pf::glfw::ModifierKey> mods) {
   switch (state) {
     case pf::glfw::ButtonState::Down: std::cout << "Button down"; break;
     case pf::glfw::ButtonState::Up: std::cout << "Button up"; break;
