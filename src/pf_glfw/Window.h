@@ -244,10 +244,6 @@ class PF_GLFW_EXPORT Window {
     previousCallbacks.glfWframebuffersizefun = callPreviousCallback ? previousCallback : nullptr;
   }
 
-  void setInputIgnorePredicate(std::predicate auto &&predicate) {
-    inputIgnorePredicate = std::forward<decltype(predicate)>(predicate);
-  }
-
  private:
   explicit Window(WindowConfig config);
 
@@ -316,8 +312,6 @@ class PF_GLFW_EXPORT Window {
 
   FrameBufferSizeCallback framebufferSizeCallback = [](auto) {};
   static void framebufferSizeGLFWCallback(GLFWwindow *window, int width, int height);
-
-  std::function<bool()> inputIgnorePredicate = [] { return false; };
 
   GLFWwindow *windowHandle;
 

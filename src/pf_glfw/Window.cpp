@@ -300,9 +300,6 @@ void Window::keyGLFWCallback(GLFWwindow *window, int key, int scancode, int acti
   if (self->previousCallbacks.glfWkeyfun != nullptr) {
       self->previousCallbacks.glfWkeyfun(window, key, scancode, action, mods);
   }
-  if (self->inputIgnorePredicate()) {
-    return;
-  }
   self->keyCallback(static_cast<Key>(key), static_cast<KeyAction>(action), Flags<ModifierKey>{static_cast<ModifierKey>(mods)});
 }
 
@@ -311,9 +308,6 @@ void Window::charGLFWCallback(GLFWwindow *window, unsigned int codepoint) {
   if (self->previousCallbacks.glfWcharfun != nullptr) {
       self->previousCallbacks.glfWcharfun(window, codepoint);
   }
-  if (self->inputIgnorePredicate()) {
-    return;
-  }
   self->charCallback(codepoint);
 }
 
@@ -321,9 +315,6 @@ void Window::mouseButtonGLFWCallback(GLFWwindow *window, int button, int action,
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
   if (self->previousCallbacks.glfWmousebuttonfun != nullptr) {
       self->previousCallbacks.glfWmousebuttonfun(window, button, action, mods);
-  }
-  if (self->inputIgnorePredicate()) {
-    return;
   }
   const auto state = static_cast<ButtonState>(action);
   const auto mouseButton = static_cast<MouseButton>(button);
@@ -336,9 +327,6 @@ void Window::cursorPositionGLFWCallback(GLFWwindow *window, double xpos, double 
   if (self->previousCallbacks.glfWcursorposfun != nullptr) {
       self->previousCallbacks.glfWcursorposfun(window, xpos, ypos);
   }
-  if (self->inputIgnorePredicate()) {
-    return;
-  }
   self->cursorPositionCallback({xpos, ypos});
 }
 
@@ -347,9 +335,6 @@ void Window::cursorEnterGLFWCallback(GLFWwindow *window, int entered) {
   if (self->previousCallbacks.glfWcursorenterfun != nullptr) {
       self->previousCallbacks.glfWcursorenterfun(window, entered);
   }
-  if (self->inputIgnorePredicate()) {
-    return;
-  }
   self->cursorEnterCallback(static_cast<CursorEntered>(entered));
 }
 
@@ -357,9 +342,6 @@ void Window::scrollGLFWCallback(GLFWwindow *window, double xoffset, double yoffs
   auto self = reinterpret_cast<Window *>(glfwGetWindowUserPointer(window));
   if (self->previousCallbacks.glfWscrollfun != nullptr) {
       self->previousCallbacks.glfWscrollfun(window, xoffset, yoffset);
-  }
-  if (self->inputIgnorePredicate()) {
-    return;
   }
   self->scrollCallback(xoffset, yoffset);
 }
