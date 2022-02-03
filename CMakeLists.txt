@@ -3,8 +3,8 @@ cmake_minimum_required(VERSION 3.20)
 include("cmake/HunterGate.cmake")
 
 HunterGate(
-        URL "https://github.com/cpp-pm/hunter/archive/v0.23.269.tar.gz"
-        SHA1 "64024b7b95b4c86d50ae05b926814448c93a70a0"
+        URL "https://github.com/cpp-pm/hunter/archive/v0.23.321.tar.gz"
+        SHA1 "5e53cbb0429037ea8e2592bfd92704b8ff3ab492"
 )
 
 
@@ -30,12 +30,12 @@ endif ()
 option(PF_GLFW_OPENGL "Use the library with OpenGL" ON)
 option(PF_GLFW_VULKAN "Use the library with Vulkan" OFF)
 
-if (PF_GLFW_OPENGL)
-    add_compile_definitions(PF_GLFW_OPENGL)
-endif ()
 if (PF_GLFW_VULKAN)
     add_compile_definitions(PF_GLFW_VULKAN)
+elseif (PF_GLFW_OPENGL)
+    add_compile_definitions(PF_GLFW_OPENGL)
 endif ()
+
 
 
 find_package(GLFW3 REQUIRED)

@@ -434,9 +434,9 @@ void Window::framebufferSizeGLFWCallback(GLFWwindow *window, int width, int heig
 void Window::setTitle(const std::string &title) {
   glfwSetWindowTitle(windowHandle, title.c_str());
 }
-
+#ifdef PF_GLFW_OPENGL
 void Window::swapBuffers() {
   glfwSwapBuffers(windowHandle);
 }
-
+#endif
 }// namespace pf::glfw
