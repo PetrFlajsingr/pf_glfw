@@ -34,7 +34,7 @@ if (PF_GLFW_OPENGL)
     add_compile_definitions(PF_GLFW_OPENGL)
 endif ()
 if (PF_GLFW_VULKAN)
-    add_compile_definitions(PF_GLFW_VULKANwapwap)
+    add_compile_definitions(PF_GLFW_VULKAN)
 endif ()
 
 
