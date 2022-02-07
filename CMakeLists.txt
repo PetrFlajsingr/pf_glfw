@@ -19,7 +19,7 @@ endif ()
 include(${CPM_DOWNLOAD_LOCATION})
 
 project(pf_glfw
-        VERSION 1.0.0)
+        VERSION 0.1.0)
 
 if (MSVC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.29.30129 AND CMAKE_VERSION VERSION_GREATER 3.20.3)
     set(CMAKE_CXX_STANDARD 23) # /std:c++latest - unlocks the non stable cpp20 features. For new 16.11 versions
@@ -44,7 +44,7 @@ include_directories(${GLFW_INCLUDE_DIRS})
 CPMAddPackage(
         NAME pf_common
         GITHUB_REPOSITORY PetrFlajsingr/pf_common
-        GIT_TAG master
+        GIT_TAG v1.2.0
 )
 
 set(SOURCES
