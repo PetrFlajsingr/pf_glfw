@@ -9,32 +9,35 @@ A c++20 GLFW wrapper.
 Example usage:
 
 ```cpp
-auto glfw = pf::glfw::GLFW{}; // init GLFW
+namespace pglfw = pf::glfw;
+auto glfw = pglfw::GLFW{}; // init GLFW
 auto window = glfw.createWindow({.width = 1200,
                                  .height = 900,
                                  .title = "OpenGL",
-                                 .monitor = pf::glfw::Monitor::Primary(),
+                                 .monitor = pglfw::Monitor::Primary(),
                                  .majorOpenGLVersion = 4,
                                  .minorOpenGLVersion = 6});
 
-window->setMouseButtonCallback([](pf::glfw::MouseButton button, 
-                                  pf::glfw::ButtonState state, 
-                                  pf::Flags<pf::glfw::ModifierKey> mods) {
+// new callback can cache the old one and call it when the event is triggered
+constexpr bool callPreviousMouseButtonCallback = true;
+window->setMouseButtonCallback([](pglfw::MouseButton button, 
+                                  pglfw::ButtonState state, 
+                                  pf::Flags<pglfw::ModifierKey> mods) {
   switch (state) {
-    case pf::glfw::ButtonState::Down: std::cout << "Button down"; break;
-    case pf::glfw::ButtonState::Up: std::cout << "Button up"; break;
+    case pglfw::ButtonState::Down: std::cout << "Button down"; break;
+    case pglfw::ButtonState::Up: std::cout << "Button up"; break;
   }
-  if (mods & pf::glfw::ModifierKey::Shift) {
+  if (mods & pglfw::ModifierKey::Shift) {
     std::cout << " with shift";
   }
-});
+}, callPreviousMouseButtonCallback);
 
 std::vector<std::byte> imageData = loadCursorImage();
-pf::glfw::Image cursorImage{std::span{imageData.begin(), imageData.end()}};
-pf::glfw::Cursor customCursor{cursorImage};
+pglfw::Image cursorImage{std::span{imageData.begin(), imageData.end()}};
+pglfw::Cursor customCursor{cursorImage};
 window->setCursor(customCursor);
 
-pf::glfw::Image iconImage = loadIconImage();
+pglfw::Image iconImage = loadIconImage();
 window->setIcon{iconImage};
 
 while(!window->shouldClose()) {
