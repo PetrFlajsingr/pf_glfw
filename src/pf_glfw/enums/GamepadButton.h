@@ -9,6 +9,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
+
 enum class PF_GLFW_EXPORT GamepadButton {
   A = GLFW_GAMEPAD_BUTTON_A,
   B = GLFW_GAMEPAD_BUTTON_B,
@@ -31,5 +32,7 @@ enum class PF_GLFW_EXPORT GamepadButton {
   Square = GLFW_GAMEPAD_BUTTON_SQUARE,
   Triangle = GLFW_GAMEPAD_BUTTON_TRIANGLE,
 };
-}
-#endif//PF_GLFW_ENUMS_GAMEPADBUTTON_H
+
+}  // namespace pf::glfw
+
+#endif  // PF_GLFW_ENUMS_GAMEPADBUTTON_H

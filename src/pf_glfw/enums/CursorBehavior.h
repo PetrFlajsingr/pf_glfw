@@ -16,4 +16,4 @@ enum class PF_GLFW_EXPORT CursorBehavior {
 };
 }
 
-#endif//PF_GLFW_ENUMS_CURSORBEHAVIOR_H
+#endif  // PF_GLFW_ENUMS_CURSORBEHAVIOR_H

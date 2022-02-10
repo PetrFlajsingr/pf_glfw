@@ -19,6 +19,8 @@
 #include <pf_glfw/enums/JoystickHatState.h>
 #include <pf_glfw/enums/JoystickID.h>
 #include <span>
+#include <string>
+#include <utility>
 #include <vector>
 
 namespace pf::glfw {
@@ -76,11 +78,11 @@ class PF_GLFW_EXPORT Joystick {
   static inline std::function<void(JoystickID, Connection)> OnConnectionChange = [](auto, auto) {};
   static void joystickGLFWCallback(int id, int event);
 
-  //std::function<void(GamepadButton, ButtonState)> gamepadButtonCallback = [](auto, auto) {};
+  // std::function<void(GamepadButton, ButtonState)> gamepadButtonCallback = [](auto, auto) {};
 
   JoystickID id;
 };
 
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_SRC_PF_GLFW_JOYSTICK_H
+#endif  // PF_GLFW_SRC_PF_GLFW_JOYSTICK_H

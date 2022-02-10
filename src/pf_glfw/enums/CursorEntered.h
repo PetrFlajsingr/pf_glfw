@@ -9,10 +9,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-enum class PF_GLFW_EXPORT CursorEntered {
-  Yes = GLFW_TRUE,
-  No = GLFW_FALSE
-};
+enum class PF_GLFW_EXPORT CursorEntered { Yes = GLFW_TRUE, No = GLFW_FALSE };
 }
 
-#endif//PF_GLFW_ENUMS_CURSORENTERED_H
+#endif  // PF_GLFW_ENUMS_CURSORENTERED_H

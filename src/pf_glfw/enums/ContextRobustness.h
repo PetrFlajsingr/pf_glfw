@@ -14,9 +14,8 @@ enum class PF_GLFW_EXPORT ContextRobustness {
   No = GLFW_NO_ROBUSTNESS,
   NoResetNotification = GLFW_NO_RESET_NOTIFICATION,
   LoseContextOnReset = GLFW_LOSE_CONTEXT_ON_RESET
-
 };
 #endif
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_CONTEXTROBUSTNESS_H
+#endif  // PF_GLFW_ENUMS_CONTEXTROBUSTNESS_H

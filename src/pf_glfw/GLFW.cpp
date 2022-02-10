@@ -8,17 +8,13 @@
 namespace pf::glfw {
 
 GLFW::GLFW() {
-  if (glfwInit() != GLFW_TRUE) {
-    details::getLastErrorAndThrow();
-  }
+  if (glfwInit() != GLFW_TRUE) { details::getLastErrorAndThrow(); }
 }
 
-GLFW::~GLFW() {
-  glfwTerminate();
-}
+GLFW::~GLFW() { glfwTerminate(); }
 
 Version GLFW::GetVersion() {
-  Version result;
+  Version result{};
   glfwGetVersion(&result.major, &result.minor, &result.revision);
   return result;
 }
@@ -28,13 +24,9 @@ const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowConfig &
   return windows.emplace_back(window);
 }
 
-void GLFW::removeWindow(const std::shared_ptr<Window> &window) {
-  std::erase(windows, window);
-}
+void GLFW::removeWindow(const std::shared_ptr<Window> &window) { std::erase(windows, window); }
 
-void GLFW::setCurrentWindow(const std::shared_ptr<Window> &window) {
-  glfwMakeContextCurrent(window->getHandle());
-}
+void GLFW::setCurrentWindow(const std::shared_ptr<Window> &window) { glfwMakeContextCurrent(window->getHandle()); }
 #ifdef PF_GLFW_OPENGL
 bool GLFW::isExtensionSupported(const std::string &extension) const {
   return glfwExtensionSupported(extension.c_str()) == GLFW_TRUE;
@@ -49,41 +41,26 @@ std::vector<std::string> GLFW::getRequiredExtensions() const {
 }
 #endif
 
-void GLFW::pollEvents() {
-  glfwPollEvents();
-}
+void GLFW::pollEvents() { glfwPollEvents(); }
 
-void GLFW::waitEvents() {
-  glfwWaitEvents();
-}
+void GLFW::waitEvents() { glfwWaitEvents(); }
 
 void GLFW::waitEvents(std::chrono::milliseconds timeout) {
-  glfwWaitEventsTimeout(timeout.count() / 1000.0);
+  glfwWaitEventsTimeout(static_cast<double>(timeout.count()) / 1000.0);
 }
 
-double GLFW::getTime() const {
-  return glfwGetTime();
-}
+double GLFW::getTime() const { return glfwGetTime(); }
 
-void GLFW::setTime(double time) {
-  glfwSetTime(time);
-}
+void GLFW::setTime(double time) { glfwSetTime(time); }
 
-std::uint64_t GLFW::getTimerValue() const {
-  return glfwGetTimerValue();
-}
+std::uint64_t GLFW::getTimerValue() const { return glfwGetTimerValue(); }
 
-std::uint64_t GLFW::getTimerFrequency() const {
-  return glfwGetTimerFrequency();
-}
+std::uint64_t GLFW::getTimerFrequency() const { return glfwGetTimerFrequency(); }
 
 #ifdef PF_GLFW_OPENGL
-decltype(&glfwGetProcAddress) GLFW::getLoaderFnc() const {
-  return glfwGetProcAddress;
-}
+decltype(&glfwGetProcAddress) GLFW::getLoaderFnc() const { return glfwGetProcAddress; }
 
-void GLFW::setSwapInterval(std::size_t interval){
-  glfwSwapInterval(static_cast<int>(interval));
-}
+void GLFW::setSwapInterval(std::size_t interval) { glfwSwapInterval(static_cast<int>(interval)); }
 #endif
-}// namespace pf::glfw
+
+}  // namespace pf::glfw

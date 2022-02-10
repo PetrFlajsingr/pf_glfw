@@ -9,6 +9,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
+
 enum class PF_GLFW_EXPORT GamepadAxis {
   LeftX = GLFW_GAMEPAD_AXIS_LEFT_X,
   LeftY = GLFW_GAMEPAD_AXIS_LEFT_Y,
@@ -18,5 +19,7 @@ enum class PF_GLFW_EXPORT GamepadAxis {
   RightTrigger = GLFW_GAMEPAD_AXIS_RIGHT_TRIGGER,
   Last = GLFW_GAMEPAD_AXIS_LAST
 };
-}
-#endif//PF_GLFW_ENUMS_GAMEPADAXIS_H
+
+}  // namespace pf::glfw
+
+#endif  // PF_GLFW_ENUMS_GAMEPADAXIS_H

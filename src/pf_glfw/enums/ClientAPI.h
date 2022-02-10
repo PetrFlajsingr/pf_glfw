@@ -16,6 +16,6 @@ enum class PF_GLFW_EXPORT ClientAPI {
 #endif
   None = GLFW_NO_API
 };
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_CLIENTAPI_H
+#endif  // PF_GLFW_ENUMS_CLIENTAPI_H

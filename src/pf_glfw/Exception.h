@@ -16,14 +16,9 @@ namespace pf::glfw {
 class PF_GLFW_EXPORT Exception : public std::exception {
  public:
   template<typename... Args>
-  explicit Exception(Error error, std::string message) : eType(error), msg(std::move(message)) {
-  }
-  [[nodiscard]] inline const char *what() const noexcept override {
-    return msg.c_str();
-  }
-  [[nodiscard]] inline Error type() const {
-    return eType;
-  }
+  explicit Exception(Error error, std::string message) : eType(error), msg(std::move(message)) {}
+  [[nodiscard]] inline const char *what() const noexcept override { return msg.c_str(); }
+  [[nodiscard]] inline Error type() const { return eType; }
 
  private:
   Error eType;
@@ -31,26 +26,21 @@ class PF_GLFW_EXPORT Exception : public std::exception {
 };
 
 namespace details {
+
 inline std::optional<Exception> getLastError() {
   const char *desc;
   const auto code = static_cast<Error>(glfwGetError(&desc));
-  if (code == Error::NoError) {
-    return std::nullopt;
-  }
-  if (desc != nullptr) {
-    return Exception{code, desc};
-  }
+  if (code == Error::NoError) { return std::nullopt; }
+  if (desc != nullptr) { return Exception{code, desc}; }
   return Exception{code, ""};
 }
 
 inline void getLastErrorAndThrow() {
   const auto error = getLastError();
-  if (error.has_value()) {
-    throw error.value();
-  }
+  if (error.has_value()) { throw Exception{error.value()}; }
 }
-}// namespace details
 
-}// namespace pf::glfw
+}  // namespace details
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_EXCEPTION_H
+#endif  // PF_GLFW_EXCEPTION_H

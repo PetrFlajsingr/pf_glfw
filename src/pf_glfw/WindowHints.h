@@ -57,15 +57,15 @@ class WindowHints {
 #endif
 
   bool cocoaRetinaFramebuffer = true;
-  std::string cocoaFrameName = "";
+  std::string cocoaFrameName{};
   bool cocoaGraphicsSwitching = false;
 
-  std::string x11ClassName = "";
-  std::string x11InstanceName = "";
+  std::string x11ClassName{};
+  std::string x11InstanceName{};
 
  private:
   void apply() const;
 };
 
-}// namespace pf::glfw
-#endif//PF_GLFW_WINDOWHINTS_H
+}  // namespace pf::glfw
+#endif  // PF_GLFW_WINDOWHINTS_H

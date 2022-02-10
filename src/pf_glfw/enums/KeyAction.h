@@ -9,11 +9,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-enum class PF_GLFW_EXPORT KeyAction {
-  Down = GLFW_PRESS,
-  Up = GLFW_RELEASE,
-  Repeat = GLFW_REPEAT
-};
+enum class PF_GLFW_EXPORT KeyAction { Down = GLFW_PRESS, Up = GLFW_RELEASE, Repeat = GLFW_REPEAT };
 }
 
-#endif//PF_GLFW_ENUMS_KEYACTION_H
+#endif  // PF_GLFW_ENUMS_KEYACTION_H

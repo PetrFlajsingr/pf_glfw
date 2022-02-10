@@ -8,14 +8,13 @@
 #include "Exception.h"
 #include "Window.h"
 #include <GLFW/glfw3.h>
+#include <memory>
 #include <optional>
 #include <pf_glfw/_export.h>
+#include <string>
+#include <vector>
 
 namespace pf::glfw {
-// glfwGetTime
-// glfwSetTime
-// glfwGetTimerValue
-// glfwGetTimerFrequency
 
 class PF_GLFW_EXPORT GLFW {
  public:
@@ -54,13 +53,13 @@ class PF_GLFW_EXPORT GLFW {
   [[nodiscard]] std::vector<std::string> getRequiredExtensions() const;
 #endif
 
-  //glfwSwapInterval
+  // glfwSwapInterval
   // glfwGetProcAddress
 
  private:
   std::vector<std::shared_ptr<Window>> windows;
 };
 
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_GLFW_H
+#endif  // PF_GLFW_GLFW_H

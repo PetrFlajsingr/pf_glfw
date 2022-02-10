@@ -23,5 +23,7 @@ enum class PF_GLFW_EXPORT Error {
   FormatUnavailable = GLFW_FORMAT_UNAVAILABLE,
   NoWindowContext = GLFW_NO_WINDOW_CONTEXT
 };
-}
-#endif//PF_GLFW_ENUMS_ERROR_H
+
+}  // namespace pf::glfw
+
+#endif  // PF_GLFW_ENUMS_ERROR_H

@@ -6,17 +6,13 @@
 
 namespace pf::glfw {
 
-Cursor::Cursor(const Image &image, int xHotspot, int yHotspot) : cursorHandle(glfwCreateCursor(image.getHandle(), xHotspot, yHotspot)) {
-}
+Cursor::Cursor(const Image &image, int xHotspot, int yHotspot)
+    : cursorHandle(glfwCreateCursor(image.getHandle(), xHotspot, yHotspot)) {}
 
 Cursor::Cursor(CursorShape cursorShape) : cursorHandle(glfwCreateStandardCursor(static_cast<int>(cursorShape))) {}
 
-Cursor::~Cursor() {
-  glfwDestroyCursor(cursorHandle);
-}
+Cursor::~Cursor() { glfwDestroyCursor(cursorHandle); }
 
-GLFWcursor *Cursor::getHandle() {
-  return cursorHandle;
-}
+GLFWcursor *Cursor::getHandle() { return cursorHandle; }
 
-}// namespace pf::glfw
+}  // namespace pf::glfw

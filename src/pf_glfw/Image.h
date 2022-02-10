@@ -14,13 +14,14 @@
 namespace pf::glfw {
 
 // gotta be RGBA
+// FIXME: some memory issue
 class PF_GLFW_EXPORT Image {
  public:
   Image(std::size_t width, std::size_t height, std::span<const std::byte> pixels);
   Image(const Image &other);
-  Image& operator=(const Image &other);
+  Image &operator=(const Image &other);
   Image(Image &&other) noexcept;
-  Image& operator=(Image &&other) noexcept;
+  Image &operator=(Image &&other) noexcept;
 
   [[nodiscard]] std::size_t getWidth() const;
   [[nodiscard]] std::size_t getHeight() const;
@@ -31,9 +32,9 @@ class PF_GLFW_EXPORT Image {
 
  private:
   std::vector<std::byte> imagePixels;
-  GLFWimage imageHandle;
+  GLFWimage imageHandle{};
 };
 
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_IMAGE_H
+#endif  // PF_GLFW_IMAGE_H

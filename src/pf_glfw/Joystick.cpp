@@ -31,21 +31,13 @@ GamepadState::GamepadState(GLFWgamepadstate *src) {
   axes[5] = src->axes[5];
 }
 
-ButtonState GamepadState::getButtonState(GamepadButton button) const {
-  return buttons[static_cast<int>(button)];
-}
+ButtonState GamepadState::getButtonState(GamepadButton button) const { return buttons[static_cast<int>(button)]; }
 
-float GamepadState::getAxisValue(GamepadAxis axis) const {
-  return axes[static_cast<int>(axis)];
-}
+float GamepadState::getAxisValue(GamepadAxis axis) const { return axes[static_cast<int>(axis)]; }
 
-Joystick::Joystick(JoystickID id) : id(id) {
-  glfwSetJoystickUserPointer(static_cast<int>(id), this);
-}
+Joystick::Joystick(JoystickID id) : id(id) { glfwSetJoystickUserPointer(static_cast<int>(id), this); }
 
-bool Joystick::isPresent() const {
-  return glfwJoystickPresent(static_cast<int>(id));
-}
+bool Joystick::isPresent() const { return glfwJoystickPresent(static_cast<int>(id)); }
 
 std::vector<float> Joystick::getAxes() const {
   int count;
@@ -59,9 +51,8 @@ std::vector<ButtonState> Joystick::getButtonStates() const {
   const auto statesSpan = std::span{states, states + count};
   std::vector<ButtonState> result;
   result.reserve(count);
-  std::ranges::transform(statesSpan, std::back_inserter(result), [](const auto state) {
-    return state == GLFW_PRESS ? ButtonState::Down : ButtonState::Up;
-  });
+  std::ranges::transform(statesSpan, std::back_inserter(result),
+                         [](const auto state) { return state == GLFW_PRESS ? ButtonState::Down : ButtonState::Up; });
   return result;
 }
 
@@ -71,31 +62,20 @@ std::vector<Flags<JoystickHatState>> Joystick::getHatStates() const {
   const auto statesSpan = std::span{states, states + count};
   std::vector<Flags<JoystickHatState>> result;
   result.reserve(count);
-  std::ranges::transform(statesSpan, std::back_inserter(result), [](const auto state) {
-    return static_cast<JoystickHatState>(state);
-  });
+  std::ranges::transform(statesSpan, std::back_inserter(result),
+                         [](const auto state) { return static_cast<JoystickHatState>(state); });
   return result;
 }
 
-std::string Joystick::getName() const {
-  return glfwGetJoystickName(static_cast<int>(id));
-}
+std::string Joystick::getName() const { return glfwGetJoystickName(static_cast<int>(id)); }
 
-std::string Joystick::getGUID() const {
-  return glfwGetJoystickGUID(static_cast<int>(id));
-}
+std::string Joystick::getGUID() const { return glfwGetJoystickGUID(static_cast<int>(id)); }
 
-JoystickID Joystick::getID() const {
-  return id;
-}
+JoystickID Joystick::getID() const { return id; }
 
-bool Joystick::isGamepad() const {
-  return glfwJoystickIsGamepad(static_cast<int>(id)) == GLFW_TRUE;
-}
+bool Joystick::isGamepad() const { return glfwJoystickIsGamepad(static_cast<int>(id)) == GLFW_TRUE; }
 
-std::string Joystick::getGamepadName() const {
-  return glfwGetGamepadName(static_cast<int>(id));
-}
+std::string Joystick::getGamepadName() const { return glfwGetGamepadName(static_cast<int>(id)); }
 
 GamepadState Joystick::getGamepadState() const {
   GLFWgamepadstate native;
@@ -104,12 +84,11 @@ GamepadState Joystick::getGamepadState() const {
 }
 
 void Joystick::updateGamepadMappings(const std::string &gameControllerDbFmt) {
-  if (glfwUpdateGamepadMappings(gameControllerDbFmt.c_str()) != GLFW_TRUE) {
-    details::getLastErrorAndThrow();
-  }
+  if (glfwUpdateGamepadMappings(gameControllerDbFmt.c_str()) != GLFW_TRUE) { details::getLastErrorAndThrow(); }
 }
 
 void Joystick::joystickGLFWCallback(int id, int event) {
   Joystick::OnConnectionChange(static_cast<JoystickID>(id), static_cast<Connection>(event));
 }
-}// namespace pf::glfw
+
+}  // namespace pf::glfw

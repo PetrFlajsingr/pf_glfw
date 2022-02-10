@@ -16,6 +16,6 @@ enum class PF_GLFW_EXPORT ContextReleaseBehavior {
   None = GLFW_RELEASE_BEHAVIOR_NONE
 };
 #endif
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_CONTEXTRELEASEBEHAVIOR_H
+#endif  // PF_GLFW_ENUMS_CONTEXTRELEASEBEHAVIOR_H

@@ -9,6 +9,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
+
 enum class PF_GLFW_EXPORT MouseButton {
   B1 = GLFW_MOUSE_BUTTON_1,
   B2 = GLFW_MOUSE_BUTTON_2,
@@ -23,6 +24,7 @@ enum class PF_GLFW_EXPORT MouseButton {
   Right = GLFW_MOUSE_BUTTON_RIGHT,
   Middle = GLFW_MOUSE_BUTTON_MIDDLE
 };
-}
 
-#endif//PF_GLFW_ENUMS_MOUSEBUTTON_H
+}  // namespace pf::glfw
+
+#endif  // PF_GLFW_ENUMS_MOUSEBUTTON_H

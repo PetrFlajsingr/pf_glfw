@@ -6,6 +6,7 @@
 #define PF_GLFW_CONCEPTS_H
 
 #include <filesystem>
+#include <vector>
 #include <pf_common/enums.h>
 #include <pf_glfw/enums/ButtonState.h>
 #include <pf_glfw/enums/Connection.h>
@@ -61,6 +62,6 @@ template<typename F>
 concept MonitorConfigListener = std::is_invocable_r_v<void, F, Connection>;
 template<typename F>
 concept JoystickConnectionListener = std::is_invocable_r_v<void, F, JoystickID, Connection>;
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_CONCEPTS_H
+#endif  // PF_GLFW_CONCEPTS_H

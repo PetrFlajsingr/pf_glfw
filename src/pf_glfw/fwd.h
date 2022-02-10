@@ -11,6 +11,6 @@ class Image;
 class Monitor;
 class Window;
 class GLFW;
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_FWD_H
+#endif  // PF_GLFW_FWD_H

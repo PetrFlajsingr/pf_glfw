@@ -8,7 +8,9 @@
 #include <GLFW/glfw3.h>
 
 namespace pf::glfw {
+
 inline constexpr int DontCare = GLFW_DONT_CARE;
+
 }
 
-#endif//PF_GLFW_CONSTANTS_H
+#endif  // PF_GLFW_CONSTANTS_H

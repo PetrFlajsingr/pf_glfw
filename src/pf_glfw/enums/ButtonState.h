@@ -6,10 +6,9 @@
 #define PF_GLFW_ENUMS_BUTTONSTATE_H
 
 namespace pf::glfw {
-enum class ButtonState {
-  Up,
-  Down
-};
+
+enum class ButtonState { Up, Down };
+
 }
 
-#endif//PF_GLFW_ENUMS_BUTTONSTATE_H
+#endif  // PF_GLFW_ENUMS_BUTTONSTATE_H

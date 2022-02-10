@@ -139,6 +139,6 @@ enum class PF_GLFW_EXPORT Key {
   Menu = GLFW_KEY_MENU,
   Last = GLFW_KEY_LAST
 };
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_KEY_H
+#endif  // PF_GLFW_ENUMS_KEY_H

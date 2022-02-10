@@ -8,6 +8,7 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
+
 struct PF_GLFW_EXPORT Version {
   int major;
   int minor;
@@ -38,6 +39,7 @@ struct PF_GLFW_EXPORT Scale {
   float x;
   float y;
 };
-}// namespace pf::glfw
 
-#endif//PF_GLFW_STRUCTS_H
+}  // namespace pf::glfw
+
+#endif  // PF_GLFW_STRUCTS_H

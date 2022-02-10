@@ -53,4 +53,4 @@ void WindowHints::apply() const {
   glfwWindowHintString(GLFW_X11_INSTANCE_NAME, x11InstanceName.c_str());
 }
 
-}// namespace pf::glfw
+}  // namespace pf::glfw

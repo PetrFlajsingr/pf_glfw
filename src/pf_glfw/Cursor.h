@@ -27,6 +27,6 @@ class PF_GLFW_EXPORT Cursor {
   GLFWcursor *cursorHandle;
 };
 
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_CURSOR_H
+#endif  // PF_GLFW_CURSOR_H

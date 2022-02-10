@@ -11,6 +11,7 @@
 #include <pf_glfw/concepts.h>
 #include <pf_glfw/enums/Connection.h>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace pf::glfw {
@@ -52,6 +53,6 @@ class PF_GLFW_EXPORT Monitor {
   GLFWmonitor *monitorHandle;
 };
 
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_MONITOR_H
+#endif  // PF_GLFW_MONITOR_H

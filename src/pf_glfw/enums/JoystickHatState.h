@@ -20,5 +20,5 @@ enum class PF_GLFW_EXPORT JoystickHatState {
   Left_up = GLFW_HAT_LEFT_UP,
   Left_down = GLFW_HAT_LEFT_DOWN,
 };
-}
-#endif//PF_GLFW_ENUMS_JOYSTICKHATSTATE_H
+}  // namespace pf::glfw
+#endif  // PF_GLFW_ENUMS_JOYSTICKHATSTATE_H

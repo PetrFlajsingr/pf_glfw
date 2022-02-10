@@ -27,6 +27,8 @@
 #include <pf_glfw/enums/MouseButton.h>
 #include <pf_glfw/fwd.h>
 #include <string>
+#include <utility>
+#include <vector>
 
 namespace pf::glfw {
 
@@ -69,7 +71,7 @@ class PF_GLFW_EXPORT Window {
   [[nodiscard]] Position<double> getCursorPosition() const;
   void setCursorPosition(Position<double> cursorPosition);
 
-  [[nodiscard]] std::string getClipboardContents() const;
+  [[nodiscard]] std::optional<std::string> getClipboardContents() const;
   void setClipboardContents(const std::string &contents);
 
   void setCursor(Cursor &cursor);
@@ -105,7 +107,6 @@ class PF_GLFW_EXPORT Window {
 
   [[nodiscard]] bool isVisible() const;
   [[nodiscard]] bool isMaximized() const;
-
 
   void setFocus();
 
@@ -264,7 +265,6 @@ class PF_GLFW_EXPORT Window {
   using MaximizeCallback = std::function<void(bool)>;
   using FrameBufferSizeCallback = std::function<void(Size<int>)>;
 
-
   KeyCallback keyCallback = [](auto, auto, auto) {};
   static void keyGLFWCallback(GLFWwindow *window, int key, int scancode, int action, int mods);
 
@@ -316,25 +316,25 @@ class PF_GLFW_EXPORT Window {
   GLFWwindow *windowHandle;
 
   struct {
-      GLFWkeyfun glfWkeyfun = nullptr;
-      GLFWcharfun glfWcharfun = nullptr;
-      GLFWmousebuttonfun glfWmousebuttonfun = nullptr;
-      GLFWcursorposfun glfWcursorposfun = nullptr;
-      GLFWcursorenterfun glfWcursorenterfun = nullptr;
-      GLFWscrollfun glfWscrollfun = nullptr;
-      GLFWdropfun glfWdropfun = nullptr;
-      GLFWwindowcontentscalefun glfWwindowcontentscalefun = nullptr;
-      GLFWwindowposfun glfWwindowposfun = nullptr;
-      GLFWwindowsizefun glfWwindowsizefun = nullptr;
-      GLFWwindowclosefun glfWwindowclosefun = nullptr;
-      GLFWwindowrefreshfun glfWwindowrefreshfun = nullptr;
-      GLFWwindowfocusfun glfWwindowfocusfun = nullptr;
-      GLFWwindowiconifyfun glfWwindowiconifyfun = nullptr;
-      GLFWwindowmaximizefun glfWwindowmaximizefun = nullptr;
-      GLFWframebuffersizefun glfWframebuffersizefun = nullptr;
+    GLFWkeyfun glfWkeyfun = nullptr;
+    GLFWcharfun glfWcharfun = nullptr;
+    GLFWmousebuttonfun glfWmousebuttonfun = nullptr;
+    GLFWcursorposfun glfWcursorposfun = nullptr;
+    GLFWcursorenterfun glfWcursorenterfun = nullptr;
+    GLFWscrollfun glfWscrollfun = nullptr;
+    GLFWdropfun glfWdropfun = nullptr;
+    GLFWwindowcontentscalefun glfWwindowcontentscalefun = nullptr;
+    GLFWwindowposfun glfWwindowposfun = nullptr;
+    GLFWwindowsizefun glfWwindowsizefun = nullptr;
+    GLFWwindowclosefun glfWwindowclosefun = nullptr;
+    GLFWwindowrefreshfun glfWwindowrefreshfun = nullptr;
+    GLFWwindowfocusfun glfWwindowfocusfun = nullptr;
+    GLFWwindowiconifyfun glfWwindowiconifyfun = nullptr;
+    GLFWwindowmaximizefun glfWwindowmaximizefun = nullptr;
+    GLFWframebuffersizefun glfWframebuffersizefun = nullptr;
   } previousCallbacks;
 };
 
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_WINDOW_H
+#endif  // PF_GLFW_WINDOW_H

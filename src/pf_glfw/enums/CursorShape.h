@@ -18,6 +18,6 @@ enum class PF_GLFW_EXPORT CursorShape {
   VResize = GLFW_VRESIZE_CURSOR
 };
 
-}
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_CURSORSHAPE_H
+#endif  // PF_GLFW_ENUMS_CURSORSHAPE_H

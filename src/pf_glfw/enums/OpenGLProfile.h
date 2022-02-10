@@ -16,6 +16,6 @@ enum class PF_GLFW_EXPORT OpenGLProfile {
   Any = GLFW_OPENGL_ANY_PROFILE
 };
 #endif
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_OPENGLPROFILE_H
+#endif  // PF_GLFW_ENUMS_OPENGLPROFILE_H

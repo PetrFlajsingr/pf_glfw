@@ -16,6 +16,6 @@ enum class PF_GLFW_EXPORT ContextCreationAPI {
   Osmesa = GLFW_OSMESA_CONTEXT_API
 };
 #endif
-}// namespace pf::glfw
+}  // namespace pf::glfw
 
-#endif//PF_GLFW_ENUMS_CONTEXTCREATIONAPI_H
+#endif  // PF_GLFW_ENUMS_CONTEXTCREATIONAPI_H

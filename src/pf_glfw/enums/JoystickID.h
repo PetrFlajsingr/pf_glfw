@@ -28,5 +28,7 @@ enum class PF_GLFW_EXPORT JoystickID {
   Joystick16 = GLFW_JOYSTICK_16,
   JoystickLast = GLFW_JOYSTICK_LAST
 };
-}
-#endif//PF_GLFW_SRC_PF_GLFW_ENUMS_JOIYSTICK_H
+
+}  // namespace pf::glfw
+
+#endif  // PF_GLFW_SRC_PF_GLFW_ENUMS_JOIYSTICK_H
