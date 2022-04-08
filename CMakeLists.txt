@@ -30,10 +30,10 @@ endif ()
 
 
 find_package(fmt CONFIG REQUIRED)
-find_package(glm CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
 find_package(range-v3 CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
-find_package(GLFW3 REQUIRED)
+find_package(glm CONFIG REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
 find_package(pf_common CONFIG REQUIRED)
 
@@ -94,7 +94,7 @@ include(GNUInstallDirs)
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common glfw ${GLFW_STATIC_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common glfw)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
