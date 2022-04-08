@@ -129,7 +129,7 @@ install(TARGETS ${PROJECT_NAME}
 #)
 
 install(
-        DIRECTORY "${CMAKE_SOURCE_DIR}/"
+        DIRECTORY "${CMAKE_SOURCE_DIR}/src/pf_glfw/"
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
         FILES_MATCHING
         PATTERN "*.h"
