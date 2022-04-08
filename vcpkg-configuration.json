@@ -1,0 +1,10 @@
+{
+  "registries": [
+    {
+      "kind": "git",
+      "repository": "https://github.com/PetrFlajsingr/vcpkg-registry",
+      "baseline": "70dfc635eaa74f2c37ea62bbcbbefa991bf5bbc1",
+      "packages": [ "pf-common" ]
+    }
+  ]
+}

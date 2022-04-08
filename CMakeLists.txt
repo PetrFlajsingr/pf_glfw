@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 
-include("cmake/HunterGate.cmake")
-
-HunterGate(
-        URL "https://github.com/cpp-pm/hunter/archive/v0.23.321.tar.gz"
-        SHA1 "5e53cbb0429037ea8e2592bfd92704b8ff3ab492"
-)
-
-
 set(CPM_DOWNLOAD_LOCATION "${CMAKE_SOURCE_DIR}/cmake/CPM.cmake")
 set(CPM_DOWNLOAD_VERSION 0.32.2)
 
@@ -19,7 +11,7 @@ endif ()
 include(${CPM_DOWNLOAD_LOCATION})
 
 project(pf_glfw
-        VERSION 0.1.0)
+        VERSION 0.1.1)
 
 if (MSVC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.29.30129 AND CMAKE_VERSION VERSION_GREATER 3.20.3)
     set(CMAKE_CXX_STANDARD 23) # /std:c++latest - unlocks the non stable cpp20 features. For new 16.11 versions
@@ -37,15 +29,15 @@ elseif (PF_GLFW_OPENGL)
 endif ()
 
 
-
+find_package(fmt CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
+find_package(range-v3 CONFIG REQUIRED)
+find_package(magic_enum CONFIG REQUIRED)
 find_package(GLFW3 REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
+find_package(pf_common CONFIG REQUIRED)
 
-CPMAddPackage(
-        NAME pf_common
-        GITHUB_REPOSITORY PetrFlajsingr/pf_common
-        GIT_TAG v1.2.0
-)
+
 
 set(SOURCES
         src/pf_glfw/Window.cpp
@@ -102,7 +94,7 @@ include(GNUInstallDirs)
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common magic_enum range-v3 glfw ${GLFW_STATIC_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common glfw ${GLFW_STATIC_LIBRARIES})
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
@@ -117,7 +109,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VER
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
 
-install(TARGETS ${PROJECT_NAME} pf_common magic_enum
+install(TARGETS ${PROJECT_NAME}
         EXPORT ${PROJECT_NAME}Targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
