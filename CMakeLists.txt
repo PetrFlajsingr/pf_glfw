@@ -41,31 +41,33 @@ find_package(pf_common CONFIG REQUIRED)
 
 set(SOURCES
         src/pf_glfw/Window.cpp
-        src/pf_glfw/Window.h
+        src/pf_glfw/enums/Key.cpp
+        src/pf_glfw/Cursor.cpp
+        src/pf_glfw/Image.cpp
+        src/pf_glfw/Monitor.cpp
+        src/pf_glfw/GLFW.cpp
+        src/pf_glfw/WindowHints.cpp
+        src/pf_glfw/Joystick.cpp)
+
+set(INCLUDES src/pf_glfw/Window.h
         src/pf_glfw/enums/Key.h
         src/pf_glfw/enums/KeyAction.h
         src/pf_glfw/enums/ModifierKey.h
         src/pf_glfw/enums/MouseButton.h
         src/pf_glfw/enums/CursorEntered.h
-        src/pf_glfw/enums/Key.cpp
-        src/pf_glfw/Cursor.cpp
         src/pf_glfw/Cursor.h
-        src/pf_glfw/Image.cpp
         src/pf_glfw/Image.h
         src/pf_glfw/enums/CursorShape.h
-        src/pf_glfw/Monitor.cpp
         src/pf_glfw/Monitor.h
         src/pf_glfw/enums/Connection.h
         src/pf_glfw/concepts.h
         src/pf_glfw/structs.h
-        src/pf_glfw/GLFW.cpp
         src/pf_glfw/GLFW.h
         src/pf_glfw/fwd.h
         src/pf_glfw/enums/Error.h
         src/pf_glfw/Exception.h
         src/pf_glfw/enums/ButtonState.h
         src/pf_glfw/enums/CursorBehavior.h
-        src/pf_glfw/WindowHints.cpp
         src/pf_glfw/WindowHints.h
         src/pf_glfw/constants.h
         src/pf_glfw/enums/OpenGLProfile.h
@@ -77,7 +79,6 @@ set(SOURCES
         src/pf_glfw/enums/GamepadButton.h
         src/pf_glfw/enums/JoystickHatState.h
         src/pf_glfw/enums/JoystickID.h
-        src/pf_glfw/Joystick.cpp
         src/pf_glfw/Joystick.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
