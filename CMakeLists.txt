@@ -129,6 +129,15 @@ install(TARGETS ${PROJECT_NAME}
 #)
 
 install(
+        FILES
+        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME_LOWER}_export.h
+        DESTINATION
+        ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+        COMPONENT
+        Devel
+)
+
+install(
         DIRECTORY "${CMAKE_SOURCE_DIR}/src/pf_glfw/"
         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
         FILES_MATCHING
