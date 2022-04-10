@@ -1,13 +1,5 @@
 cmake_minimum_required(VERSION 3.20)
 
-include("cmake/HunterGate.cmake")
-
-HunterGate(
-        URL "https://github.com/cpp-pm/hunter/archive/v0.23.321.tar.gz"
-        SHA1 "5e53cbb0429037ea8e2592bfd92704b8ff3ab492"
-)
-
-
 set(CPM_DOWNLOAD_LOCATION "${CMAKE_SOURCE_DIR}/cmake/CPM.cmake")
 set(CPM_DOWNLOAD_VERSION 0.32.2)
 
@@ -19,7 +11,7 @@ endif ()
 include(${CPM_DOWNLOAD_LOCATION})
 
 project(pf_glfw
-        VERSION 0.1.0)
+        VERSION 0.1.1)
 
 if (MSVC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.29.30129 AND CMAKE_VERSION VERSION_GREATER 3.20.3)
     set(CMAKE_CXX_STANDARD 23) # /std:c++latest - unlocks the non stable cpp20 features. For new 16.11 versions
@@ -37,43 +29,45 @@ elseif (PF_GLFW_OPENGL)
 endif ()
 
 
-
-find_package(GLFW3 REQUIRED)
+find_package(fmt CONFIG REQUIRED)
+find_package(glfw3 CONFIG REQUIRED)
+find_package(range-v3 CONFIG REQUIRED)
+find_package(magic_enum CONFIG REQUIRED)
+find_package(glm CONFIG REQUIRED)
 include_directories(${GLFW_INCLUDE_DIRS})
+find_package(pf_common CONFIG REQUIRED)
 
-CPMAddPackage(
-        NAME pf_common
-        GITHUB_REPOSITORY PetrFlajsingr/pf_common
-        GIT_TAG v1.2.0
-)
+
 
 set(SOURCES
         src/pf_glfw/Window.cpp
-        src/pf_glfw/Window.h
+        src/pf_glfw/enums/Key.cpp
+        src/pf_glfw/Cursor.cpp
+        src/pf_glfw/Image.cpp
+        src/pf_glfw/Monitor.cpp
+        src/pf_glfw/GLFW.cpp
+        src/pf_glfw/WindowHints.cpp
+        src/pf_glfw/Joystick.cpp)
+
+set(INCLUDES src/pf_glfw/Window.h
         src/pf_glfw/enums/Key.h
         src/pf_glfw/enums/KeyAction.h
         src/pf_glfw/enums/ModifierKey.h
         src/pf_glfw/enums/MouseButton.h
         src/pf_glfw/enums/CursorEntered.h
-        src/pf_glfw/enums/Key.cpp
-        src/pf_glfw/Cursor.cpp
         src/pf_glfw/Cursor.h
-        src/pf_glfw/Image.cpp
         src/pf_glfw/Image.h
         src/pf_glfw/enums/CursorShape.h
-        src/pf_glfw/Monitor.cpp
         src/pf_glfw/Monitor.h
         src/pf_glfw/enums/Connection.h
         src/pf_glfw/concepts.h
         src/pf_glfw/structs.h
-        src/pf_glfw/GLFW.cpp
         src/pf_glfw/GLFW.h
         src/pf_glfw/fwd.h
         src/pf_glfw/enums/Error.h
         src/pf_glfw/Exception.h
         src/pf_glfw/enums/ButtonState.h
         src/pf_glfw/enums/CursorBehavior.h
-        src/pf_glfw/WindowHints.cpp
         src/pf_glfw/WindowHints.h
         src/pf_glfw/constants.h
         src/pf_glfw/enums/OpenGLProfile.h
@@ -85,7 +79,6 @@ set(SOURCES
         src/pf_glfw/enums/GamepadButton.h
         src/pf_glfw/enums/JoystickHatState.h
         src/pf_glfw/enums/JoystickID.h
-        src/pf_glfw/Joystick.cpp
         src/pf_glfw/Joystick.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
@@ -93,7 +86,7 @@ SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windo
 SET(CMAKE_RELWITHDEBINFO_POSTFIX "rd" CACHE STRING "add a postfix, usually empty on windows")
 SET(CMAKE_MINSIZEREL_POSTFIX "s" CACHE STRING "add a postfix, usually empty on windows")
 
-add_library(${PROJECT_NAME} ${SOURCES} ${INCLUDES})
+add_library(${PROJECT_NAME} STATIC ${SOURCES} ${INCLUDES})
 add_library(${PROJECT_NAME}::${PROJECT_NAME} ALIAS ${PROJECT_NAME})
 target_compile_options(${PROJECT_NAME} PRIVATE ${flags})
 
@@ -102,7 +95,7 @@ include(GNUInstallDirs)
 target_include_directories(${PROJECT_NAME} PUBLIC $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>)
 target_include_directories(${PROJECT_NAME} PUBLIC $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>)
 
-target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common magic_enum range-v3 glfw ${GLFW_STATIC_LIBRARIES})
+target_link_libraries(${PROJECT_NAME} PUBLIC pf_common::pf_common glfw)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 set(CMAKE_INCLUDE_CURRENT_DIR_IN_INTERFACE ON)
@@ -117,7 +110,7 @@ set_property(TARGET ${PROJECT_NAME} PROPERTY INTERFACE_${PROJECT_NAME}_MAJOR_VER
 set_property(TARGET ${PROJECT_NAME} APPEND PROPERTY COMPATIBLE_INTERFACE_STRING ${PROJECT_NAME}_MAJOR_VERSION)
 
 
-install(TARGETS ${PROJECT_NAME} pf_common magic_enum
+install(TARGETS ${PROJECT_NAME}
         EXPORT ${PROJECT_NAME}Targets
         LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
         ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
@@ -125,9 +118,18 @@ install(TARGETS ${PROJECT_NAME} pf_common magic_enum
         INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
         )
 
+#install(
+#        FILES
+#        ${INCLUDES}
+#        ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME_LOWER}_export.h
+#        DESTINATION
+#        ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+#        COMPONENT
+#        Devel
+#)
+
 install(
         FILES
-        ${INCLUDES}
         ${CMAKE_CURRENT_BINARY_DIR}/${PROJECT_NAME}/${PROJECT_NAME_LOWER}_export.h
         DESTINATION
         ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
@@ -135,6 +137,12 @@ install(
         Devel
 )
 
+install(
+        DIRECTORY "${CMAKE_SOURCE_DIR}/src/pf_glfw/"
+        DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/${PROJECT_NAME}
+        FILES_MATCHING
+        PATTERN "*.h"
+)
 install(
         FILES
         ${GENERATED_INCLUDES}
