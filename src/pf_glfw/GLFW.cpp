@@ -19,7 +19,12 @@ Version GLFW::GetVersion() {
   return result;
 }
 
-const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowConfig &config) {
+const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowOpenGlConfig &config) {
+  auto window = std::shared_ptr<Window>(new Window{config});
+  return windows.emplace_back(window);
+}
+
+const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowNoApiConfig &config) {
   auto window = std::shared_ptr<Window>(new Window{config});
   return windows.emplace_back(window);
 }
@@ -27,19 +32,17 @@ const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowConfig &
 void GLFW::removeWindow(const std::shared_ptr<Window> &window) { std::erase(windows, window); }
 
 void GLFW::setCurrentWindow(const std::shared_ptr<Window> &window) { glfwMakeContextCurrent(window->getHandle()); }
-#ifdef PF_GLFW_OPENGL
+
 bool GLFW::isExtensionSupported(const std::string &extension) const {
   return glfwExtensionSupported(extension.c_str()) == GLFW_TRUE;
 }
-#endif
-#ifdef PF_GLFW_VULKAN
-std::vector<std::string> GLFW::getRequiredExtensions() const {
+
+std::vector<std::string> GLFW::getRequiredVulkanExtensions() const {
   std::uint32_t count;
   const auto extensions = glfwGetRequiredInstanceExtensions(&count);
   const auto extSpan = std::span{extensions, count};
   return std::vector<std::string>{extSpan.begin(), extSpan.end()};
 }
-#endif
 
 void GLFW::pollEvents() { glfwPollEvents(); }
 
@@ -57,10 +60,8 @@ std::uint64_t GLFW::getTimerValue() const { return glfwGetTimerValue(); }
 
 std::uint64_t GLFW::getTimerFrequency() const { return glfwGetTimerFrequency(); }
 
-#ifdef PF_GLFW_OPENGL
 decltype(&glfwGetProcAddress) GLFW::getLoaderFnc() const { return glfwGetProcAddress; }
 
 void GLFW::setSwapInterval(std::size_t interval) { glfwSwapInterval(static_cast<int>(interval)); }
-#endif
 
 }  // namespace pf::glfw

@@ -47,14 +47,13 @@ class WindowHints {
   bool stereo = false;
   bool srgbCapable = false;
   bool doubleBuffer = true;
-#ifdef PF_GLFW_OPENGL
+
   ContextCreationAPI contextCreationApi = ContextCreationAPI::Native;
   ContextRobustness contextRobustness = ContextRobustness::No;
   ContextReleaseBehavior contextReleaseBehavior = ContextReleaseBehavior::Any;
   bool forwardCompat = false;
   bool debugContext = false;
   OpenGLProfile openglProfile = OpenGLProfile::Any;
-#endif
 
   bool cocoaRetinaFramebuffer = true;
   std::string cocoaFrameName{};
@@ -64,7 +63,7 @@ class WindowHints {
   std::string x11InstanceName{};
 
  private:
-  void apply() const;
+  void apply(bool isOpenGl) const;
 };
 
 }  // namespace pf::glfw

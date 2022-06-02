@@ -9,13 +9,13 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-#ifdef PF_GLFW_OPENGL
+
 enum class PF_GLFW_EXPORT ContextReleaseBehavior {
   Any = GLFW_ANY_RELEASE_BEHAVIOR,
   Flush = GLFW_RELEASE_BEHAVIOR_FLUSH,
   None = GLFW_RELEASE_BEHAVIOR_NONE
 };
-#endif
+
 }  // namespace pf::glfw
 
 #endif  // PF_GLFW_ENUMS_CONTEXTRELEASEBEHAVIOR_H

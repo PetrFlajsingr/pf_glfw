@@ -6,7 +6,7 @@
 
 namespace pf::glfw {
 
-void WindowHints::apply() const {
+void WindowHints::apply(bool isOpenGl) const {
   glfwWindowHint(GLFW_RESIZABLE, resizable);
   glfwWindowHint(GLFW_VISIBLE, visible);
   glfwWindowHint(GLFW_DECORATED, decorated);
@@ -37,14 +37,15 @@ void WindowHints::apply() const {
   glfwWindowHint(GLFW_SRGB_CAPABLE, srgbCapable);
   glfwWindowHint(GLFW_DOUBLEBUFFER, doubleBuffer);
 
-#ifdef PF_GLFW_OPENGL
-  glfwWindowHint(GLFW_CONTEXT_CREATION_API, static_cast<int>(contextCreationApi));
-  glfwWindowHint(GLFW_CONTEXT_ROBUSTNESS, static_cast<int>(contextRobustness));
-  glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR, static_cast<int>(contextReleaseBehavior));
-  glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, forwardCompat);
-  glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, debugContext);
-  glfwWindowHint(GLFW_OPENGL_PROFILE, static_cast<int>(openglProfile));
-#endif
+  if (isOpenGl) {
+    glfwWindowHint(GLFW_CONTEXT_CREATION_API, static_cast<int>(contextCreationApi));
+    glfwWindowHint(GLFW_CONTEXT_ROBUSTNESS, static_cast<int>(contextRobustness));
+    glfwWindowHint(GLFW_CONTEXT_RELEASE_BEHAVIOR, static_cast<int>(contextReleaseBehavior));
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, forwardCompat);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, debugContext);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, static_cast<int>(openglProfile));
+  }
+
   glfwWindowHint(GLFW_COCOA_RETINA_FRAMEBUFFER, cocoaRetinaFramebuffer);
   glfwWindowHintString(GLFW_COCOA_FRAME_NAME, cocoaFrameName.c_str());
   glfwWindowHint(GLFW_COCOA_GRAPHICS_SWITCHING, cocoaGraphicsSwitching);

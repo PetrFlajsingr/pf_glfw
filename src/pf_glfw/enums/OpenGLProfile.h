@@ -9,13 +9,13 @@
 #include <pf_glfw/_export.h>
 
 namespace pf::glfw {
-#ifdef PF_GLFW_OPENGL
+
 enum class PF_GLFW_EXPORT OpenGLProfile {
   Compat = GLFW_OPENGL_COMPAT_PROFILE,
   Core = GLFW_OPENGL_CORE_PROFILE,
   Any = GLFW_OPENGL_ANY_PROFILE
 };
-#endif
+
 }  // namespace pf::glfw
 
 #endif  // PF_GLFW_ENUMS_OPENGLPROFILE_H

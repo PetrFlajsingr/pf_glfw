@@ -32,21 +32,24 @@
 
 namespace pf::glfw {
 
-struct PF_GLFW_EXPORT WindowConfig {
+struct PF_GLFW_EXPORT WindowOpenGlConfig {
   std::size_t width;
   std::size_t height;
   std::string title;
   std::optional<Monitor> monitor = std::nullopt;
   ClientAPI clientApi =
-#ifdef PF_GLFW_OPENGL
       ClientAPI::OpenGL;
-#else
-      ClientAPI::None;
-#endif
-#ifdef PF_GLFW_OPENGL
   int majorOpenGLVersion;
   int minorOpenGLVersion;
-#endif
+  WindowHints hints{};
+};
+
+struct PF_GLFW_EXPORT WindowNoApiConfig {
+  std::size_t width;
+  std::size_t height;
+  std::string title;
+  std::optional<Monitor> monitor = std::nullopt;
+
   WindowHints hints{};
 };
 
@@ -145,9 +148,7 @@ class PF_GLFW_EXPORT Window {
 
   void setCurrent();
 
-#ifdef PF_GLFW_OPENGL
   void swapBuffers();
-#endif
 
   void setKeyCallback(KeyListener auto &&callback, bool callPreviousCallback = false) {
     keyCallback = std::forward<decltype(callback)>(callback);
@@ -246,7 +247,8 @@ class PF_GLFW_EXPORT Window {
   }
 
  private:
-  explicit Window(WindowConfig config);
+  explicit Window(WindowOpenGlConfig config);
+  explicit Window(WindowNoApiConfig config);
 
   using KeyCallback = std::function<void(Key, KeyAction, Flags<ModifierKey>)>;
   using CharCallback = std::function<void(std::u32string::value_type)>;

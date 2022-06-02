@@ -19,15 +19,6 @@ else ()
     set(CMAKE_CXX_STANDARD 20) # /std:c++latest for msvc and -std=c++20 for everyone else.
 endif ()
 
-option(PF_GLFW_OPENGL "Use the library with OpenGL" ON)
-option(PF_GLFW_VULKAN "Use the library with Vulkan" OFF)
-
-if (PF_GLFW_VULKAN)
-    add_compile_definitions(PF_GLFW_VULKAN)
-elseif (PF_GLFW_OPENGL)
-    add_compile_definitions(PF_GLFW_OPENGL)
-endif ()
-
 
 find_package(fmt CONFIG REQUIRED)
 find_package(glfw3 CONFIG REQUIRED)

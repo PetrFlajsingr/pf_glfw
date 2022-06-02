@@ -9,16 +9,27 @@
 
 namespace pf::glfw {
 
-Window::Window(WindowConfig config) {
+Window::Window(WindowOpenGlConfig config) {
   GLFWmonitor *monitor = nullptr;
   if (config.monitor.has_value()) { monitor = config.monitor->getHandle(); }
-#ifdef PF_GLFW_OPENGL
+
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, config.majorOpenGLVersion);
   glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, config.minorOpenGLVersion);
   glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GLFW_TRUE);
   glfwWindowHint(GLFW_OPENGL_PROFILE, static_cast<int>(config.clientApi));
-#endif
-  config.hints.apply();
+
+  config.hints.apply(true);
+  windowHandle = glfwCreateWindow(static_cast<int>(config.width), static_cast<int>(config.height), config.title.c_str(),
+                                  monitor, nullptr);
+  if (windowHandle == nullptr) { details::getLastErrorAndThrow(); }
+  glfwSetWindowUserPointer(windowHandle, this);
+}
+
+Window::Window(WindowNoApiConfig config) {
+  GLFWmonitor *monitor = nullptr;
+  if (config.monitor.has_value()) { monitor = config.monitor->getHandle(); }
+
+  config.hints.apply(false);
   windowHandle = glfwCreateWindow(static_cast<int>(config.width), static_cast<int>(config.height), config.title.c_str(),
                                   monitor, nullptr);
   if (windowHandle == nullptr) { details::getLastErrorAndThrow(); }
@@ -361,8 +372,6 @@ void Window::framebufferSizeGLFWCallback(GLFWwindow *window, int width, int heig
 
 void Window::setTitle(const std::string &title) { glfwSetWindowTitle(windowHandle, title.c_str()); }
 
-#ifdef PF_GLFW_OPENGL
 void Window::swapBuffers() { glfwSwapBuffers(windowHandle); }
-#endif
 
 }  // namespace pf::glfw
