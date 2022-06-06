@@ -32,7 +32,7 @@
 
 namespace pf::glfw {
 
-struct PF_GLFW_EXPORT WindowOpenGlConfig {
+struct PF_GLFW_EXPORT WindowOpenGlConfig { //-V730
   std::size_t width;
   std::size_t height;
   std::string title;
@@ -44,7 +44,7 @@ struct PF_GLFW_EXPORT WindowOpenGlConfig {
   WindowHints hints{};
 };
 
-struct PF_GLFW_EXPORT WindowNoApiConfig {
+struct PF_GLFW_EXPORT WindowNoApiConfig { //-V730
   std::size_t width;
   std::size_t height;
   std::string title;

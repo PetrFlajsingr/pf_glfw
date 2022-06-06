@@ -7,7 +7,7 @@
 
 namespace pf::glfw {
 
-GLFW::GLFW() {
+GLFW::GLFW() { //-V730
   if (glfwInit() != GLFW_TRUE) { details::getLastErrorAndThrow(); }
 }
 
@@ -20,12 +20,12 @@ Version GLFW::GetVersion() {
 }
 
 const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowOpenGlConfig &config) {
-  auto window = std::shared_ptr<Window>(new Window{config});
+  auto window = std::shared_ptr<Window>(new Window{config}); //-V824
   return windows.emplace_back(window);
 }
 
 const std::shared_ptr<Window> &GLFW::createWindow(const pf::glfw::WindowNoApiConfig &config) {
-  auto window = std::shared_ptr<Window>(new Window{config});
+  auto window = std::shared_ptr<Window>(new Window{config}); //-V824
   return windows.emplace_back(window);
 }
 

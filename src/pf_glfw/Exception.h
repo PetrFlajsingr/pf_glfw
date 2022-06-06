@@ -37,7 +37,7 @@ inline std::optional<Exception> getLastError() {
 
 inline void getLastErrorAndThrow() {
   const auto error = getLastError();
-  if (error.has_value()) { throw Exception{error.value()}; }
+  if (error.has_value()) { throw Exception{*error}; }
 }
 
 }  // namespace details
