@@ -6,7 +6,6 @@
 #define PF_GLFW_CONCEPTS_H
 
 #include <filesystem>
-#include <vector>
 #include <pf_common/enums.h>
 #include <pf_glfw/enums/ButtonState.h>
 #include <pf_glfw/enums/Connection.h>
@@ -18,6 +17,7 @@
 #include <pf_glfw/enums/ModifierKey.h>
 #include <pf_glfw/enums/MouseButton.h>
 #include <pf_glfw/structs.h>
+#include <vector>
 
 namespace pf::glfw {
 

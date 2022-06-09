@@ -10,11 +10,7 @@
 
 namespace pf::glfw {
 
-enum class PF_GLFW_EXPORT ClientAPI {
-  OpenGLES = GLFW_OPENGL_ES_API,
-  OpenGL = GLFW_OPENGL_API,
-  None = GLFW_NO_API
-};
+enum class PF_GLFW_EXPORT ClientAPI { OpenGLES = GLFW_OPENGL_ES_API, OpenGL = GLFW_OPENGL_API, None = GLFW_NO_API };
 
 }  // namespace pf::glfw
 

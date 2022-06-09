@@ -32,19 +32,18 @@
 
 namespace pf::glfw {
 
-struct PF_GLFW_EXPORT WindowOpenGlConfig { //-V730
+struct PF_GLFW_EXPORT WindowOpenGlConfig {  //-V730
   std::size_t width;
   std::size_t height;
   std::string title;
   std::optional<Monitor> monitor = std::nullopt;
-  ClientAPI clientApi =
-      ClientAPI::OpenGL;
+  ClientAPI clientApi = ClientAPI::OpenGL;
   int majorOpenGLVersion;
   int minorOpenGLVersion;
   WindowHints hints{};
 };
 
-struct PF_GLFW_EXPORT WindowNoApiConfig { //-V730
+struct PF_GLFW_EXPORT WindowNoApiConfig {  //-V730
   std::size_t width;
   std::size_t height;
   std::string title;
