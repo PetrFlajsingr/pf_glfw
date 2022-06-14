@@ -15,7 +15,7 @@ Image::Image(std::size_t width, std::size_t height, std::span<const std::byte> p
   imageHandle.pixels = reinterpret_cast<unsigned char *>(imagePixels.data());
 }
 
-Image::Image(const Image &other) : imageHandle(other.imageHandle), imagePixels(other.imagePixels) {
+Image::Image(const Image &other) : imagePixels(other.imagePixels), imageHandle(other.imageHandle) {
   imageHandle.pixels = reinterpret_cast<unsigned char *>(imagePixels.data());
 }
 
@@ -26,7 +26,7 @@ Image &Image::operator=(const Image &other) {
   return *this;
 }
 
-Image::Image(Image &&other) noexcept : imageHandle(other.imageHandle), imagePixels(std::move(other.imagePixels)) {
+Image::Image(Image &&other) noexcept : imagePixels(std::move(other.imagePixels)), imageHandle(other.imageHandle) {
   imageHandle.pixels = reinterpret_cast<unsigned char *>(imagePixels.data());
 }
 
