@@ -14,7 +14,6 @@ find_package(glfw3 CONFIG REQUIRED)
 find_package(range-v3 CONFIG REQUIRED)
 find_package(magic_enum CONFIG REQUIRED)
 find_package(glm CONFIG REQUIRED)
-include_directories(${GLFW_INCLUDE_DIRS})
 find_package(pf_common CONFIG REQUIRED)
 
 
