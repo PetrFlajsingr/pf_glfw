@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 project(pf_glfw
-        VERSION 0.2.0)
+        VERSION 0.2.1)
 
 if (MSVC AND CMAKE_CXX_COMPILER_VERSION VERSION_GREATER_EQUAL 19.29.30129 AND CMAKE_VERSION VERSION_GREATER 3.20.3)
     set(CMAKE_CXX_STANDARD 23) # /std:c++latest - unlocks the non stable cpp20 features. For new 16.11 versions
