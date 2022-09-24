@@ -29,6 +29,7 @@ Window::Window(WindowNoApiConfig config) {
   GLFWmonitor *monitor = nullptr;
   if (config.monitor.has_value()) { monitor = config.monitor->getHandle(); }
 
+  glfwWindowHint(GLFW_CLIENT_API, GLFW_NO_API);
   config.hints.apply(false);
   windowHandle = glfwCreateWindow(static_cast<int>(config.width), static_cast<int>(config.height), config.title.c_str(),
                                   monitor, nullptr);
