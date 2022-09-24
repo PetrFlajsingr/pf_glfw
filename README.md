@@ -3,7 +3,6 @@
 A c++20 GLFW wrapper.
 
 ### TODOs:
-* vulkan
 * glfwGetWindowAttrib
 
 Example usage:
