@@ -7,6 +7,8 @@
 
 #include <GLFW/glfw3.h>
 #include <functional>
+#include <pf_glfw/GammaRamp.h>
+#include <pf_glfw/VideoMode.h>
 #include <pf_glfw/_export.h>
 #include <pf_glfw/concepts.h>
 #include <pf_glfw/enums/Connection.h>
@@ -31,11 +33,13 @@ class PF_GLFW_EXPORT Monitor {
   [[nodiscard]] Scale getScale() const;
   [[nodiscard]] std::string getName() const;
 
+  [[nodiscard]] VideoMode getCurrentVideoMode() const;
+  [[nodiscard]] std::vector<VideoMode> getAvailableVideoModes() const;
+
+  [[nodiscard]] GammaRamp getGammaRamp() const;
+  [[nodiscard]] void setGammaRamp(const GammaRamp &gammaRamp) const;
+
   void setGamma(float gamma);
-  // glfwGetGammaRamp
-  // glfwSetGammaRamp
-  // glfwGetVideoModes
-  // glfwGetVideoMode
 
   void setMonitorConfigCallback(MonitorConfigListener auto &&callback) {
     monitorConfigCallback = std::forward<decltype(callback)>(callback);
