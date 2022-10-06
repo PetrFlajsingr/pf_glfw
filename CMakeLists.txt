@@ -59,7 +59,7 @@ set(INCLUDES
         src/pf_glfw/enums/GamepadButton.h
         src/pf_glfw/enums/JoystickHatState.h
         src/pf_glfw/enums/JoystickID.h
-        src/pf_glfw/Joystick.h src/pf_glfw/VideoMode.h)
+        src/pf_glfw/Joystick.h src/pf_glfw/VideoMode.h src/pf_glfw/GammaRamp.h)
 
 SET(CMAKE_DEBUG_POSTFIX "d" CACHE STRING "add a postfix, usually d on windows")
 SET(CMAKE_RELEASE_POSTFIX "" CACHE STRING "add a postfix, usually empty on windows")

@@ -6,10 +6,11 @@
 #define PF_GLFW_VIDEOMODE_H
 
 #include <cstdint>
+#include <pf_glfw/_export.h>
 
 namespace pf::glfw {
 
-struct VideoMode {
+struct PF_GLFW_EXPORT VideoMode {
   std::uint32_t width;
   std::uint32_t height;
   std::uint32_t redBitDepth;
@@ -18,6 +19,6 @@ struct VideoMode {
   std::uint32_t refreshRate;
 };
 
-}
+}  // namespace pf::glfw
 
 #endif  //PF_GLFW_VIDEOMODE_H
