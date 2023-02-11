@@ -37,7 +37,7 @@ class PF_GLFW_EXPORT Monitor {
   [[nodiscard]] std::vector<VideoMode> getAvailableVideoModes() const;
 
   [[nodiscard]] GammaRamp getGammaRamp() const;
-  [[nodiscard]] void setGammaRamp(const GammaRamp &gammaRamp) const;
+  void setGammaRamp(const GammaRamp &gammaRamp) const;
 
   void setGamma(float gamma);
 
