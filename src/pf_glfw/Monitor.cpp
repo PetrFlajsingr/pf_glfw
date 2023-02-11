@@ -28,8 +28,7 @@ std::vector<Monitor> Monitor::All() {
   const auto monitorsRaw = glfwGetMonitors(&count);
   monitors.reserve(count);
   const auto monitorsSpan = std::span{monitorsRaw, static_cast<std::size_t>(count)};
-  std::ranges::transform(monitorsSpan, std::back_inserter(monitors),
-                         [](const auto monitorPtr) { return Monitor{monitorPtr}; });
+  std::ranges::transform(monitorsSpan, std::back_inserter(monitors), [](const auto monitorPtr) { return Monitor{monitorPtr}; });
   return monitors;
 }
 
@@ -70,10 +69,9 @@ std::vector<VideoMode> Monitor::getAvailableVideoModes() const {
   int count{};
   const auto glfwVidModes = glfwGetVideoModes(monitorHandle, &count);
   return std::span{glfwVidModes, static_cast<std::size_t>(count)} | ranges::views::transform([](const auto &vidMode) {
-           return VideoMode{
-               static_cast<std::uint32_t>(vidMode.width),    static_cast<std::uint32_t>(vidMode.height),
-               static_cast<std::uint32_t>(vidMode.redBits),  static_cast<std::uint32_t>(vidMode.greenBits),
-               static_cast<std::uint32_t>(vidMode.blueBits), static_cast<std::uint32_t>(vidMode.refreshRate)};
+           return VideoMode{static_cast<std::uint32_t>(vidMode.width),    static_cast<std::uint32_t>(vidMode.height),
+                            static_cast<std::uint32_t>(vidMode.redBits),  static_cast<std::uint32_t>(vidMode.greenBits),
+                            static_cast<std::uint32_t>(vidMode.blueBits), static_cast<std::uint32_t>(vidMode.refreshRate)};
          })
       | ranges::to_vector;
 }
@@ -83,9 +81,7 @@ GammaRamp Monitor::getGammaRamp() const {
   const auto redSpan = std::span{glfwGammaRamp->red, glfwGammaRamp->red + glfwGammaRamp->size};
   const auto greenSpan = std::span{glfwGammaRamp->green, glfwGammaRamp->green + glfwGammaRamp->size};
   const auto blueSpan = std::span{glfwGammaRamp->blue, glfwGammaRamp->blue + glfwGammaRamp->size};
-  return GammaRamp{{redSpan.begin(), redSpan.end()},
-                   {greenSpan.begin(), greenSpan.end()},
-                   {blueSpan.begin(), blueSpan.end()}};
+  return GammaRamp{{redSpan.begin(), redSpan.end()}, {greenSpan.begin(), greenSpan.end()}, {blueSpan.begin(), blueSpan.end()}};
 }
 
 void Monitor::setGammaRamp(const GammaRamp &gammaRamp) const {

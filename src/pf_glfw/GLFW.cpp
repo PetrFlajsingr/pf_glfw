@@ -33,9 +33,7 @@ void GLFW::removeWindow(const std::shared_ptr<Window> &window) { std::erase(wind
 
 void GLFW::setCurrentWindow(const std::shared_ptr<Window> &window) { glfwMakeContextCurrent(window->getHandle()); }
 
-bool GLFW::isExtensionSupported(const std::string &extension) const {
-  return glfwExtensionSupported(extension.c_str()) == GLFW_TRUE;
-}
+bool GLFW::isExtensionSupported(const std::string &extension) const { return glfwExtensionSupported(extension.c_str()) == GLFW_TRUE; }
 
 std::vector<std::string> GLFW::getRequiredVulkanExtensions() const {
   std::uint32_t count;
@@ -48,9 +46,7 @@ void GLFW::pollEvents() { glfwPollEvents(); }
 
 void GLFW::waitEvents() { glfwWaitEvents(); }
 
-void GLFW::waitEvents(std::chrono::milliseconds timeout) {
-  glfwWaitEventsTimeout(static_cast<double>(timeout.count()) / 1000.0);
-}
+void GLFW::waitEvents(std::chrono::milliseconds timeout) { glfwWaitEventsTimeout(static_cast<double>(timeout.count()) / 1000.0); }
 
 double GLFW::getTime() const { return glfwGetTime(); }
 

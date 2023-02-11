@@ -62,8 +62,7 @@ std::vector<Flags<JoystickHatState>> Joystick::getHatStates() const {
   const auto statesSpan = std::span{states, states + count};
   std::vector<Flags<JoystickHatState>> result;
   result.reserve(count);
-  std::ranges::transform(statesSpan, std::back_inserter(result),
-                         [](const auto state) { return static_cast<JoystickHatState>(state); });
+  std::ranges::transform(statesSpan, std::back_inserter(result), [](const auto state) { return static_cast<JoystickHatState>(state); });
   return result;
 }
 

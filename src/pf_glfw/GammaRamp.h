@@ -35,8 +35,7 @@ class PF_GLFW_EXPORT FixedSizeVector {
 
 struct PF_GLFW_EXPORT GammaRamp {
   friend class Monitor;
-  inline GammaRamp(FixedSizeVector<std::uint16_t> red, FixedSizeVector<std::uint16_t> green,
-                   FixedSizeVector<std::uint16_t> blue)
+  inline GammaRamp(FixedSizeVector<std::uint16_t> red, FixedSizeVector<std::uint16_t> green, FixedSizeVector<std::uint16_t> blue)
       : red(std::move(red)), green(std::move(green)), blue(std::move(blue)) {}
 
  public:

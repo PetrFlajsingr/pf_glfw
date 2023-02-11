@@ -8,8 +8,7 @@
 
 namespace pf::glfw {
 
-Image::Image(std::size_t width, std::size_t height, std::span<const std::byte> pixels)
-    : imagePixels(pixels.begin(), pixels.end()) {
+Image::Image(std::size_t width, std::size_t height, std::span<const std::byte> pixels) : imagePixels(pixels.begin(), pixels.end()) {
   imageHandle.width = static_cast<int>(width);
   imageHandle.height = static_cast<int>(height);
   imageHandle.pixels = reinterpret_cast<unsigned char *>(imagePixels.data());
