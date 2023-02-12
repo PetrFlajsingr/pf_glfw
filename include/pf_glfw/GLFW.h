@@ -25,7 +25,20 @@ class GLFW {
     }
     return GLFW{};
   }
-  ~GLFW() { glfwTerminate(); }
+  ~GLFW() {
+    if (!moved) { glfwTerminate(); }
+  }
+
+  GLFW(const GLFW &) = delete;
+  GLFW &operator=(const GLFW &) = delete;
+
+  GLFW(GLFW &&other) noexcept : windows{std::move(other.windows)} { other.moved = true; }
+  GLFW &operator=(GLFW &&other) noexcept {
+    if (&other == this) { return *this; }
+    windows = std::move(other.windows);
+    other.moved = true;
+    return *this;
+  }
 
   [[nodiscard]] static Version GetVersion() {
     Version result{};
@@ -109,6 +122,7 @@ class GLFW {
   }
 
   std::vector<std::shared_ptr<Window>> windows;
+  bool moved = false;
 };
 
 }  // namespace pf::glfw
